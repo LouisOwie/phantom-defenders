@@ -4,8 +4,7 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
-#include <glm/glm.hpp>
-#include <QString>
+#include <glm/vec3.hpp>
 class Tower
 {
 public:

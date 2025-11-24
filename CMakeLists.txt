@@ -13,7 +13,7 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(OpenGL REQUIRED)
 
-# Add GLM include directory
+# Add GLM include directory (restore to lib so includes like <glm/vec3.hpp> work)
 include_directories(${CMAKE_SOURCE_DIR}/lib)
 
 set(TS_FILES phantom-defenders_en_US.ts)
@@ -27,6 +27,7 @@ set(PROJECT_SOURCES
         glwidget.h
         tower.cpp
         tower.h
+        shader.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -66,17 +67,6 @@ if(QT_VERSION_MAJOR EQUAL 5 AND TARGET Qt5::OpenGL)
     target_link_libraries(phantom-defenders PRIVATE Qt5::OpenGL)
 endif()
 
-# Copy shader files to build directory after build
-add_custom_command(TARGET phantom-defenders POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:phantom-defenders>/shader
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/shader/tower.vert
-        $<TARGET_FILE_DIR:phantom-defenders>/shader/tower.vert
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        ${CMAKE_SOURCE_DIR}/shader/tower.frag
-        $<TARGET_FILE_DIR:phantom-defenders>/shader/tower.frag
-    COMMENT "Copying shader files"
-)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
