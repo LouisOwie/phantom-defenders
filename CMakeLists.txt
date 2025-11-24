@@ -19,10 +19,6 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        glwidget.cpp
-        glwidget.h
-        image/image.cpp
-        image/image.h
         tools/programTools.cpp
         tools/programTools.h
 )
