@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         glwidget.cpp
         glwidget.h
+        tower.cpp
+        tower.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

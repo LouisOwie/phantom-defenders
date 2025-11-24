@@ -2,10 +2,7 @@
 #define GLWIDGET_H
 
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions>
-#include <QOpenGLShaderProgram>
-#include <QOpenGLVertexArrayObject>
-#include <QOpenGLBuffer>
+#include "tower.h"
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -21,9 +18,8 @@ protected:
     void resizeGL(int w, int h) override;
 
 private:
-    QOpenGLVertexArrayObject vao;
-    QOpenGLBuffer vbo;
     QOpenGLShaderProgram *shaderProgram;
+    Tower *tower;
 };
 
 #endif // GLWIDGET_H

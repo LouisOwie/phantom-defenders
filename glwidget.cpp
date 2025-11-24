@@ -2,15 +2,14 @@
 #include <QDebug>
 
 GLWidget::GLWidget(QWidget *parent)
-    : QOpenGLWidget(parent), vbo(QOpenGLBuffer::VertexBuffer), shaderProgram(nullptr)
+    : QOpenGLWidget(parent), shaderProgram(nullptr), tower(nullptr)
 {
 }
 
 GLWidget::~GLWidget()
 {
     makeCurrent();
-    vao.destroy();
-    vbo.destroy();
+    delete tower;
     delete shaderProgram;
     doneCurrent();
 }
@@ -69,29 +68,9 @@ void GLWidget::initializeGL()
 
     qDebug() << "Shader program created successfully";
 
-    // Triangle vertices
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,  // Left
-         0.5f, -0.5f, 0.0f,  // Right
-         0.0f,  0.5f, 0.0f   // Top
-    };
-
-    // Create and bind VAO
-    vao.create();
-    vao.bind();
-
-    // Create and bind VBO
-    vbo.create();
-    vbo.bind();
-    vbo.allocate(vertices, sizeof(vertices));
-
-    // Set vertex attributes
-    shaderProgram->enableAttributeArray(0);
-    shaderProgram->setAttributeBuffer(0, GL_FLOAT, 0, 3, 3 * sizeof(float));
-
-    // Unbind
-    vbo.release();
-    vao.release();
+    // Create and initialize tower
+    tower = new Tower();
+    tower->initialize(this, shaderProgram);
 
     qDebug() << "OpenGL initialization complete";
 }
@@ -104,10 +83,10 @@ void GLWidget::paintGL()
     // Use shader program
     shaderProgram->bind();
 
-    // Draw triangle
-    vao.bind();
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    vao.release();
+    // Render tower
+    if (tower) {
+        tower->render(this, shaderProgram);
+    }
 
     shaderProgram->release();
 }
