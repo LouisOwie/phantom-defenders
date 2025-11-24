@@ -19,6 +19,12 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        glwidget.cpp
+        glwidget.h
+        image/image.cpp
+        image/image.h
+        tools/programTools.cpp
+        tools/programTools.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
