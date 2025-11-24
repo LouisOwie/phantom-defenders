@@ -11,6 +11,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(OpenGL REQUIRED)
+
+# Add GLM include directory
+include_directories(${CMAKE_SOURCE_DIR}/lib)
 
 set(TS_FILES phantom-defenders_en_US.ts)
 
@@ -19,6 +23,10 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        glwidget.cpp
+        glwidget.h
+        tower.cpp
+        tower.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -48,7 +56,15 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(phantom-defenders PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(phantom-defenders PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    OpenGL::GL
+)
+
+# Link Qt OpenGL if available (Qt5 only, Qt6 includes it in Widgets)
+if(QT_VERSION_MAJOR EQUAL 5 AND TARGET Qt5::OpenGL)
+    target_link_libraries(phantom-defenders PRIVATE Qt5::OpenGL)
+endif()
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
