@@ -1,4 +1,6 @@
+# Ignore build directories
 build/
-.vs/
+#Ignore IDE directories
 .idea/
 .vscode/
+.vs/
