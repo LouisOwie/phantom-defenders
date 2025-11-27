@@ -4,15 +4,15 @@ project (phantom-defenders)
 
 # The main executable
 add_executable(phantom-defenders
-  src/Application.cpp
-  src/Application.cpp
-  src/MyApplication.cpp
-  src/MyApplication.cpp
-  src/glError.hpp
-  src/glError.cpp
-  src/main.cpp
-  src/Shader.hpp
-  src/Shader.cpp
+        src/window/Application.cpp
+        src/window/Application.cpp
+        src/window/MyApplication.cpp
+        src/window/MyApplication.cpp
+        src/utils/glError.hpp
+        src/utils/glError.cpp
+        src/main.cpp
+        src/utils/Shader.hpp
+        src/utils/Shader.cpp
 )
 
 set_property(TARGET phantom-defenders PROPERTY CXX_STANDARD 23)

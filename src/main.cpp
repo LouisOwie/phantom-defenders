@@ -6,7 +6,7 @@
  *      * MIT
  */
 
-#include "MyApplication.hpp"
+#include "window/MyApplication.hpp"
 
 int main(int argc, const char* argv[]) {
   MyApplication app;

@@ -10,7 +10,7 @@
 #define OPENGL_CMAKE_SKELETON_MYAPPLICATION
 
 #include "Application.hpp"
-#include "Shader.hpp"
+#include "../utils/Shader.hpp"
 
 class MyApplication : public Application {
  public:
