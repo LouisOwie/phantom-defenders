@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<RCC>
-  <qresource prefix="/shader">
-    <file alias="tower.vert">shader/tower.vert</file>
-    <file alias="tower.frag">shader/tower.frag</file>
-  </qresource>
-</RCC>
-
