@@ -99,37 +99,38 @@ void Application::run() {
 
   time = glfwGetTime();
 
-  while (state == stateRun) {
-    // compute new time and delta time
-    float t = glfwGetTime();
-    deltaTime = t - time;
-    time = t;
+  while (state == stateRun && !glfwWindowShouldClose(window)) {
+      glfwPollEvents();
 
-    // detech window related changes
-    detectWindowDimensionChange();
+      // if window minimized -> skip
+      if (glfwGetWindowAttrib(window, GLFW_ICONIFIED)) {
+          continue;
+      }
 
-    // execute the frame code
-    loop();
+      // compute new time and delta time
+      float t = glfwGetTime();
+      deltaTime = t - time;
+      time = t;
 
-    // Swap Front and Back buffers (double buffering)
-    glfwSwapBuffers(window);
+      // get frame buffer dimensions
+      int fbw, fbh;
+      glfwGetFramebufferSize(window, &fbw, &fbh);
 
-    // Pool and process events
-    glfwPollEvents();
+      if (fbw == 0 || fbh == 0) {
+          continue;
+      }
+
+      // set viewport
+      glViewport(0, 0, fbw, fbh);
+
+      // execute loop
+      loop();
+
+      // Swap Front and Back buffers (double buffering)
+      glfwSwapBuffers(window);
   }
 
   glfwTerminate();
-}
-
-void Application::detectWindowDimensionChange() {
-  int w, h;
-  glfwGetWindowSize(getWindow(), &w, &h);
-  dimensionChanged = (w != width || h != height);
-  if (dimensionChanged) {
-    width = w;
-    height = h;
-    glViewport(0, 0, width, height);
-  }
 }
 
 void Application::loop() {
