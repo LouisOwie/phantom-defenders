@@ -13,6 +13,7 @@
 #include "../utils/Shader.hpp"
 #include "../entities/Tower.hpp"
 #include <vector>
+#include "./Camera.hpp"
 
 class MyApplication : public Application {
 public:
@@ -25,6 +26,7 @@ private:
     const int size = 100;
 
     std::vector<Tower> entities;
+    Camera cam;
 
     // shader
     Shader vertexShader;

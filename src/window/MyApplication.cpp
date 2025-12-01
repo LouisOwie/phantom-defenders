@@ -12,10 +12,14 @@
 #include "asset.hpp"
 #include "../utils/glError.hpp"
 
-MyApplication::MyApplication()
-    : vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
-      fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
-      shaderProgram({vertexShader, fragmentShader}) {
+MyApplication::MyApplication():
+    cam(Camera(glm::vec3(0.0, 20.0, 20.0),
+                 glm::vec3(0.0, 0.0, 0.0),
+                 glm::vec3(0.0, 0.0, 1.0),
+                 30.0f, 0.1f, 100.0f)),
+    vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
+    fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
+    shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
     const Tower tower(shaderProgram);
@@ -28,11 +32,8 @@ void MyApplication::loop() {
         exit();
 
     // set matrix : projection + view
-    float t = getTime();
-    projection = glm::perspective(float(2.0 * atan(getHeight() / 1920.f)),
-                                getWindowRatio(), 0.1f, 100.f);
-    view = glm::lookAt(glm::vec3(20.0 * sin(t), 20.0 * cos(t), 20.0),
-                     glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 1.0));
+    projection = cam.getProjectionMatrix(getWindowRatio());
+    view = cam.getViewMatrix();
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
