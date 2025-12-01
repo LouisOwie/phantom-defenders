@@ -11,3 +11,30 @@ glm::mat4 Camera::getViewMatrix() {
 glm::mat4 Camera::getProjectionMatrix(float aspect) {
     return glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
 }
+
+void Camera::handleInput(char key, float deltaTime) {
+    float speed = 30.0f * deltaTime;
+    glm::vec3 forward = glm::normalize(target - position);
+    glm::vec3 right = glm::normalize(glm::cross(forward, up));
+
+    switch (key) {
+        case 'w':
+            position.y -= speed;
+            target.y -= speed;
+            break;
+        case 's':
+            position.y += speed;
+            target.y += speed;
+            break;
+        case 'a':
+            position.x += speed;
+            target.x += speed;
+            break;
+        case 'd':
+            position.x -= speed;
+            target.x -= speed;
+            break;
+        default:
+            break;
+    }
+}

@@ -36,6 +36,8 @@ private:
     // shader matrix uniform
     glm::mat4 projection = glm::mat4(1.0);
     glm::mat4 view = glm::mat4(1.0);
+
+    void processInput(float deltaTime);
 };
 
 #endif  // OPENGL_CMAKE_SKELETON_MYAPPLICATION

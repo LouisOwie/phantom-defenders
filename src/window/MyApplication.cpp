@@ -31,6 +31,8 @@ void MyApplication::loop() {
     if (glfwWindowShouldClose(getWindow()))
         exit();
 
+    processInput(getFrameDeltaTime());
+
     // set matrix : projection + view
     projection = cam.getProjectionMatrix(getWindowRatio());
     view = cam.getViewMatrix();
@@ -43,4 +45,18 @@ void MyApplication::loop() {
     for (auto entity: entities) {
         entity.draw(projection, view);
     }
+}
+
+void MyApplication::processInput(float deltaTime) {
+    GLFWwindow* window = getWindow();
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cam.handleInput('w', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cam.handleInput('s', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cam.handleInput('a', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cam.handleInput('d', deltaTime);
+
 }
