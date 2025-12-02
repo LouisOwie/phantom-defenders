@@ -23,10 +23,9 @@ protected:
     virtual void loop();
 
 private:
-    const int size = 100;
-
-    std::vector<Tower> entities;
+    // scene entities
     Camera cam;
+    std::vector<Tower> entities;
 
     // shader
     Shader vertexShader;
@@ -37,6 +36,7 @@ private:
     glm::mat4 projection = glm::mat4(1.0);
     glm::mat4 view = glm::mat4(1.0);
 
+    // input processing
     void processInput(float deltaTime);
 };
 

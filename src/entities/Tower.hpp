@@ -10,10 +10,10 @@ class Tower {
 
  private:
     const int size = 100;
+    // shader
     ShaderProgram& shaderProgram;
-    // VBO/VAO/ibo
     GLuint vao, vbo, ibo;
-
+    // initialize the object ( vertices and buffers )
     void createObject();
 };
 #endif //PHANTOM_DEFENDERS_TOWER_HPP
