@@ -14,8 +14,9 @@ glm::mat4 Camera::getProjectionMatrix(float aspect) {
 
 void Camera::handleInput(char key, float deltaTime) {
     float speed = 30.0f * deltaTime;
-    glm::vec3 forward = glm::normalize(target - position);
-    glm::vec3 right = glm::normalize(glm::cross(forward, up));
+    // Calculate forward and right vectors ( not used rn )
+    //glm::vec3 forward = glm::normalize(target - position);
+    //glm::vec3 right = glm::normalize(glm::cross(forward, up));
 
     switch (key) {
         case 'w':
