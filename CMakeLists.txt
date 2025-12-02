@@ -15,6 +15,8 @@ add_executable(phantom-defenders
         src/utils/Shader.hpp
         src/entities/tower.cpp
         src/entities/tower.hpp
+        src/window/Camera.cpp
+        src/window/Camera.hpp
 )
 
 set_property(TARGET phantom-defenders PROPERTY CXX_STANDARD 23)

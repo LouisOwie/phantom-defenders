@@ -13,6 +13,7 @@
 #include "../utils/Shader.hpp"
 #include "../entities/Tower.hpp"
 #include <vector>
+#include "./Camera.hpp"
 
 class MyApplication : public Application {
 public:
@@ -22,8 +23,8 @@ protected:
     virtual void loop();
 
 private:
-    const int size = 100;
-
+    // scene entities
+    Camera cam;
     std::vector<Tower> entities;
 
     // shader
@@ -34,6 +35,9 @@ private:
     // shader matrix uniform
     glm::mat4 projection = glm::mat4(1.0);
     glm::mat4 view = glm::mat4(1.0);
+
+    // input processing
+    void processInput(float deltaTime);
 };
 
 #endif  // OPENGL_CMAKE_SKELETON_MYAPPLICATION

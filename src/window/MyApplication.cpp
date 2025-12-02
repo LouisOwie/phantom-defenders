@@ -12,10 +12,14 @@
 #include "asset.hpp"
 #include "../utils/glError.hpp"
 
-MyApplication::MyApplication()
-    : vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
-      fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
-      shaderProgram({vertexShader, fragmentShader}) {
+MyApplication::MyApplication():
+    cam(Camera(glm::vec3(0.0, 20.0, 20.0),
+                 glm::vec3(0.0, 0.0, 0.0),
+                 glm::vec3(0.0, 0.0, 1.0),
+                 30.0f, 0.1f, 100.0f)),
+    vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
+    fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
+    shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
     const Tower tower(shaderProgram);
@@ -27,12 +31,11 @@ void MyApplication::loop() {
     if (glfwWindowShouldClose(getWindow()))
         exit();
 
+    processInput(getFrameDeltaTime());
+
     // set matrix : projection + view
-    float t = getTime();
-    projection = glm::perspective(float(2.0 * atan(getHeight() / 1920.f)),
-                                getWindowRatio(), 0.1f, 100.f);
-    view = glm::lookAt(glm::vec3(20.0 * sin(t), 20.0 * cos(t), 20.0),
-                     glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 1.0));
+    projection = cam.getProjectionMatrix(getWindowRatio());
+    view = cam.getViewMatrix();
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
@@ -42,4 +45,18 @@ void MyApplication::loop() {
     for (auto entity: entities) {
         entity.draw(projection, view);
     }
+}
+
+void MyApplication::processInput(float deltaTime) {
+    GLFWwindow* window = getWindow();
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cam.handleInput('w', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cam.handleInput('s', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cam.handleInput('a', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cam.handleInput('d', deltaTime);
+
 }
