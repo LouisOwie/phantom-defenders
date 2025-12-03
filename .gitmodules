@@ -12,4 +12,4 @@
 	url = https://github.com/assimp/assimp
 [submodule "lib/stb"]
 	path = lib/stb
-	url = https://github.com/nothings/stb
+	url = https://github.com/LouisOwie/stb
