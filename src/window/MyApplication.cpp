@@ -13,17 +13,17 @@
 #include "../utils/glError.hpp"
 
 MyApplication::MyApplication():
-    cam(Camera(glm::vec3(0.0, 20.0, 20.0),
-                 glm::vec3(0.0, 0.0, 0.0),
-                 glm::vec3(0.0, 0.0, 1.0),
+    cam(Camera(glm::vec3(0.0, 5.0, -20.0),
+                 glm::vec3(0.0, 5.0, 0.0),
+                 glm::vec3(0.0, 1.0, 0.0),
                  30.0f, 0.1f, 100.0f)),
     vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
     fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
-    const Tower tower(shaderProgram);
-    entities.resize(1, tower);
+    const Model towerModel("../assets/testTower.obj");
+    entities.resize(1, towerModel);
 }
 
 void MyApplication::loop() {
@@ -39,11 +39,11 @@ void MyApplication::loop() {
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.3, 0.2, 0.2, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     for (auto entity: entities) {
-        entity.draw(projection, view);
+        entity.draw(projection, view, shaderProgram);
     }
 }
 
