@@ -7,3 +7,9 @@
 [submodule "lib/glfw"]
 	path = lib/glfw
 	url = https://github.com/glfw/glfw
+[submodule "lib/assimp"]
+	path = lib/assimp
+	url = https://github.com/assimp/assimp
+[submodule "lib/stb"]
+	path = lib/stb
+	url = https://github.com/LouisOwie/stb

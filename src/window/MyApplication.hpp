@@ -11,7 +11,7 @@
 
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
-#include "../entities/Tower.hpp"
+#include "../entities/Model.hpp"
 #include <vector>
 #include "./Camera.hpp"
 
@@ -25,7 +25,7 @@ protected:
 private:
     // scene entities
     Camera cam;
-    std::vector<Tower> entities;
+    std::vector<Model> entities;
 
     // shader
     Shader vertexShader;
