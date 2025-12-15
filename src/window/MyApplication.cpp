@@ -6,18 +6,18 @@
 #include "../utils/glError.hpp"
 
 MyApplication::MyApplication():
-    cam(Camera(glm::vec3(0.0, 30.0, -5.0),
+    cam(Camera(glm::vec3(-25.0, 50.0, 0.0),
                  glm::vec3(0.0, 5.0, 0.0),
                  glm::vec3(0.0, 1.0, 0.0),
                  30.0f, 0.1f, 500.0f)),
-    sun(Light(glm::vec3(20.0,35.0,3.0))),
+    sun(Light(glm::vec3(10.0,60.0,20.0))),
     vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
     fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
     const Model towerScene("../assets/map.obj");
-    const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, -19.5f));
+    const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
     entities.resize(2, towerScene);
     entities.push_back(testTower);
 }
@@ -72,4 +72,8 @@ void MyApplication::processInput(float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cam.handleInput('d', deltaTime);
 
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+        cam.handleInput('f', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        cam.handleInput('k', deltaTime);
 }

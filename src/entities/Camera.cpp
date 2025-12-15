@@ -17,20 +17,26 @@ void Camera::handleInput(char key, float deltaTime) {
 
     switch (key) {
         case 'w':
-            position.z += speed;
-            target.z += speed;
-            break;
-        case 's':
-            position.z -= speed;
-            target.z -= speed;
-            break;
-        case 'a':
             position.x += speed;
             target.x += speed;
             break;
-        case 'd':
+        case 's':
             position.x -= speed;
             target.x -= speed;
+            break;
+        case 'a':
+            position.z -= speed;
+            target.z -= speed;
+            break;
+        case 'd':
+            position.z += speed;
+            target.z += speed;
+            break;
+        case 'f':
+            position.y = 12.0f;
+            break;
+        case 'k':
+            position.y = 50.0f;
             break;
         default:
             break;
