@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <stb_image.h>
 
-Model::Model(std::string path) {
+Model::Model(std::string path, glm::vec3 pos) : pos(pos) {
     loadModel(path);
 }
 
@@ -48,8 +48,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
         Vertex vertex;
-        glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-        vertex.position = position;
+        glm::vec3 vPosition(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+        vertex.position = vPosition + pos;
         glm::vec3 normal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
         vertex.normal = normal;
         if (mesh->mTextureCoords[0]) {
@@ -111,7 +111,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
     return textures;
 }
 
-unsigned int Model::textureFromFile(const std::string path, const std::string &directory)
+unsigned int Model::textureFromFile(std::string path, const std::string &directory)
 {
     // load and generate the texture
     std::string filename = directory + "/" + path;
