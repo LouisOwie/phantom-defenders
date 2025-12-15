@@ -6,6 +6,7 @@ layout(location = 2) in vec2 texCoords;
 
 uniform mat4 projection;
 uniform mat4 view;
+uniform vec3 lightPos;
 
 out vec4 fPosition;
 out vec4 fLightPosition;
@@ -14,8 +15,8 @@ out vec2 fTexCoords;
 
 void main(void)
 {
-    fPosition = view * vec4(position,1.0);
-    fLightPosition = view * vec4(0.0,5.0,1.0,1.0);
+    fPosition = view * vec4(position, 1.0);
+    fLightPosition = view * vec4(lightPos, 1.0);
 
     fNormal = vec3(view * vec4(normal,0.0));
     fTexCoords = texCoords;

@@ -17,6 +17,7 @@ MyApplication::MyApplication():
                  glm::vec3(0.0, 5.0, 0.0),
                  glm::vec3(0.0, 1.0, 0.0),
                  30.0f, 0.1f, 100.0f)),
+    sun(Light(glm::vec3(5.0,5.0,1.0))),
     vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
     fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
     shaderProgram({vertexShader, fragmentShader}) {
@@ -27,28 +28,37 @@ MyApplication::MyApplication():
 }
 
 void MyApplication::loop() {
-    // exit on window close button pressed
-    if (glfwWindowShouldClose(getWindow()))
-        exit();
 
     processInput(getFrameDeltaTime());
-
-    // set matrix : projection + view
-    projection = cam.getProjectionMatrix(getWindowRatio());
-    view = cam.getViewMatrix();
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.3, 0.2, 0.2, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    shaderProgram.use();
+
+    // set matrix : projection + view
+    projection = cam.getProjectionMatrix(getWindowRatio());
+    view = cam.getViewMatrix();
+
+    // send uniforms
+    shaderProgram.setUniform("projection", projection);
+    shaderProgram.setUniform("view", view);
+    shaderProgram.setUniform("lightPos", sun.getPosition());
+
     for (auto entity: entities) {
         entity.draw(projection, view, shaderProgram);
     }
+    shaderProgram.unuse();
 }
 
 void MyApplication::processInput(float deltaTime) {
+
     GLFWwindow* window = getWindow();
+    // exit on window close button pressed
+    if (glfwWindowShouldClose(window))
+        exit();
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cam.handleInput('w', deltaTime);

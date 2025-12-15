@@ -14,6 +14,7 @@
 #include "../entities/Model.hpp"
 #include <vector>
 #include "../entities/Camera.hpp"
+#include "../entities/Light.hpp"
 
 class MyApplication : public Application {
 public:
@@ -25,6 +26,7 @@ protected:
 private:
     // scene entities
     Camera cam;
+    Light sun;
     std::vector<Model> entities;
 
     // shader
