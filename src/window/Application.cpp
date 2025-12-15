@@ -25,7 +25,7 @@ Application& Application::getInstance() {
 }
 
 Application::Application()
-    : state(stateReady), width(640), height(480), title("Application") {
+    : state(stateReady), width(1280), height(720), title("Application") {
   currentApplication = this;
 
   cout << "[Info] GLFW initialisation" << endl;

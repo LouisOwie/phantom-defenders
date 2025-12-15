@@ -11,12 +11,6 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
 }
 
 void Mesh::draw(glm::mat4 projection, glm::mat4 view, ShaderProgram &shaderProgram) {
-    shaderProgram.use();
-
-    // send uniforms
-    shaderProgram.setUniform("projection", projection);
-    shaderProgram.setUniform("view", view);
-
     // bind textures
     bool hasTexture = false;
     bool hasSpecularTexture = false;
@@ -65,8 +59,6 @@ void Mesh::draw(glm::mat4 projection, glm::mat4 view, ShaderProgram &shaderProgr
         glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
-
-    shaderProgram.unuse();
 }
 
 void Mesh::createObject() {
