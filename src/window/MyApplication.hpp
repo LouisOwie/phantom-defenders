@@ -13,7 +13,7 @@
 #include "../utils/Shader.hpp"
 #include "../entities/Model.hpp"
 #include <vector>
-#include "./Camera.hpp"
+#include "../entities/Camera.hpp"
 
 class MyApplication : public Application {
 public:
