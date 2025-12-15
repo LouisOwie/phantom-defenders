@@ -17,7 +17,7 @@ MyApplication::MyApplication():
                  glm::vec3(0.0, 5.0, 0.0),
                  glm::vec3(0.0, 1.0, 0.0),
                  30.0f, 0.1f, 100.0f)),
-    sun(Light(glm::vec3(5.0,5.0,1.0))),
+    sun(Light(glm::vec3(20.0,35.0,3.0))),
     vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
     fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
     shaderProgram({vertexShader, fragmentShader}) {
