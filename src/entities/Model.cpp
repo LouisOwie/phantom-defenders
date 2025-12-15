@@ -10,9 +10,9 @@ Model::Model(std::string path) {
     loadModel(path);
 }
 
-void Model::draw(glm::mat4 projection, glm::mat4 view, ShaderProgram &shaderProgram) {
+void Model::draw(ShaderProgram &shaderProgram) {
     for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].draw(projection, view, shaderProgram);
+        meshes[i].draw(shaderProgram);
 }
 
 void Model::loadModel(std::string path) {
@@ -79,6 +79,18 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
         std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         std::cout << "Loaded " << specularMaps.size() << " specular textures" << std::endl;
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
+        if (diffuseMaps.empty()) {
+            aiColor3D kd(0,0,0);
+            if (AI_SUCCESS == material->Get(AI_MATKEY_COLOR_DIFFUSE, kd)) {
+                Texture kdTexture;
+                kdTexture.id = 0;
+                kdTexture.type = "kd_color";
+                kdTexture.path = "";
+                kdTexture.color = glm::vec3(kd.r, kd.g, kd.b);
+                textures.push_back(kdTexture);
+            }
+        }
     }
     return Mesh(vertices, indices, textures);
 }

@@ -9,7 +9,7 @@
 class Model {
 public:
     Model(std::string path);
-    void draw(glm::mat4 projection, glm::mat4 view, ShaderProgram& shaderProgram);
+    void draw(ShaderProgram& shaderProgram);
 private:
     std::vector<Mesh> meshes;
     std::string directory;

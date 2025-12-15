@@ -23,8 +23,8 @@ MyApplication::MyApplication():
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
-    const Model towerModel("../assets/testTower.obj");
-    entities.resize(1, towerModel);
+    const Model towerScene("../assets/tower_defense_scene.obj");
+    entities.resize(1, towerScene);
 }
 
 void MyApplication::loop() {
@@ -48,7 +48,7 @@ void MyApplication::loop() {
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
     for (auto entity: entities) {
-        entity.draw(projection, view, shaderProgram);
+        entity.draw(shaderProgram);
     }
     shaderProgram.unuse();
 }

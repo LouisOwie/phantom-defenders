@@ -10,7 +10,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     createObject();
 }
 
-void Mesh::draw(glm::mat4 projection, glm::mat4 view, ShaderProgram &shaderProgram) {
+void Mesh::draw(ShaderProgram &shaderProgram) {
     // bind textures
     bool hasTexture = false;
     bool hasSpecularTexture = false;
@@ -30,13 +30,12 @@ void Mesh::draw(glm::mat4 projection, glm::mat4 view, ShaderProgram &shaderProgr
             hasSpecularTexture = true;
             specularNr++;
         }
+        else if (textures[i].type == "kd_color") {
+            shaderProgram.setUniform("kd_color", textures[i].color);
+        }
     }
     shaderProgram.setUniform("hasTexture", hasTexture);
     shaderProgram.setUniform("hasSpecularTexture", hasSpecularTexture);
-
-    if (!hasTexture) {
-        std::cout << "Warning: No diffuse texture bound for this mesh!" << std::endl;
-    }
 
     glCheckError(__FILE__, __LINE__);
 
