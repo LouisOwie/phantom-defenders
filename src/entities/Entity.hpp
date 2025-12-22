@@ -4,14 +4,17 @@
 
 class Entity {
 public:
-    Entity(std::string modelPath, glm::vec3 pos = glm::vec3(0.0f));
+    Entity(Model* model, glm::vec3 pos = glm::vec3(0.0f));
     virtual ~Entity() = default;
-    Model getModel();
+    Model* getModel();
 
     void draw(ShaderProgram &shaderProgram);
     virtual void update(float deltaTime) = 0;
+
+    // getter/setter
+    glm::vec3 getPos() { return pos;}
 protected:
-    Model model;
+    Model* model;
     glm::vec3 pos;
 };
 #endif //PHANTOM_DEFENDERS_ENTITY_HPP

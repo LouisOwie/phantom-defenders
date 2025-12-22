@@ -27,6 +27,8 @@ add_executable(phantom-defenders
         src/entities/Entity.hpp
         src/scene/SpawnGate.cpp
         src/scene/SpawnGate.hpp
+        src/model/ModelManager.cpp
+        src/model/ModelManager.hpp
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/src/assets)
