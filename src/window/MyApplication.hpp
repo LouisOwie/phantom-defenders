@@ -14,6 +14,7 @@
 #include "../entities/Model.hpp"
 #include "../entities/Entity.hpp"
 #include <vector>
+#include <memory>
 #include "../entities/Camera.hpp"
 #include "../entities/Light.hpp"
 
@@ -29,7 +30,7 @@ private:
     Camera cam;
     Light sun;
     std::vector<Model> mapModels;
-    std::vector<Entity> entities;
+    std::vector<std::unique_ptr<Entity>> entities;
 
     // shader
     Shader vertexShader;
@@ -41,7 +42,10 @@ private:
     glm::mat4 view = glm::mat4(1.0);
 
     // input processing
-    void processInput(float deltaTime);
+    void processInput();
+
+    // animation
+    void animate();
 };
 
 #endif  // OPENGL_CMAKE_SKELETON_MYAPPLICATION

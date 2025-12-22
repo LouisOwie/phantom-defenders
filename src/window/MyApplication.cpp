@@ -23,8 +23,7 @@ MyApplication::MyApplication():
     const Model portal("../assets/portal.obj", glm::vec3(0.0f, -1.6f, -42.0f));
     mapModels.push_back(portal);
 
-    const Ghost testGhost = Ghost();
-    entities.push_back(testGhost);
+    entities.push_back(std::make_unique<Ghost>());
     //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
     //entities.push_back(testTower);
 
@@ -40,7 +39,8 @@ MyApplication::MyApplication():
 
 void MyApplication::loop() {
 
-    processInput(getFrameDeltaTime());
+    processInput();
+    animate();
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
@@ -61,13 +61,19 @@ void MyApplication::loop() {
     for (auto entity: mapModels) {
         entity.draw(shaderProgram);
     }
-    for (auto entity: entities) {
-        entity.getModel().draw(shaderProgram);
+    for (auto& entity: entities) {
+        entity->draw(shaderProgram);
     }
     shaderProgram.unuse();
 }
 
-void MyApplication::processInput(float deltaTime) {
+void MyApplication::animate() {
+    for (auto& entity: entities) {
+        entity->update(getFrameDeltaTime());
+    }
+}
+
+void MyApplication::processInput() {
 
     GLFWwindow* window = getWindow();
     // exit on window close button pressed
@@ -75,16 +81,16 @@ void MyApplication::processInput(float deltaTime) {
         exit();
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cam.handleInput('w', deltaTime);
+        cam.handleInput('w', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cam.handleInput('s', deltaTime);
+        cam.handleInput('s', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cam.handleInput('a', deltaTime);
+        cam.handleInput('a', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cam.handleInput('d', deltaTime);
+        cam.handleInput('d', getFrameDeltaTime());
 
     if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-        cam.handleInput('f', deltaTime);
+        cam.handleInput('f', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-        cam.handleInput('k', deltaTime);
+        cam.handleInput('k', getFrameDeltaTime());
 }

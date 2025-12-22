@@ -10,7 +10,10 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     createObject();
 }
 
-void Mesh::draw(ShaderProgram &shaderProgram) {
+void Mesh::draw(ShaderProgram &shaderProgram, glm::mat4 modelMatrix) {
+    // set model matrix uniform
+    shaderProgram.setUniform("model", modelMatrix);
+
     // bind textures
     bool hasTexture = false;
     bool hasSpecularTexture = false;
