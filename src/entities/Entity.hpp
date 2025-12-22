@@ -1,6 +1,6 @@
 ﻿#ifndef PHANTOM_DEFENDERS_ENTITY_HPP
 #define PHANTOM_DEFENDERS_ENTITY_HPP
-#include "Model.hpp"
+#include "../model/Model.hpp"
 
 class Entity {
 public:

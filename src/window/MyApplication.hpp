@@ -11,12 +11,12 @@
 
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
-#include "../entities/Model.hpp"
+#include "../model/Model.hpp"
 #include "../entities/Entity.hpp"
 #include <vector>
 #include <memory>
-#include "../entities/Camera.hpp"
-#include "../entities/Light.hpp"
+#include "../scene/Camera.hpp"
+#include "../scene/Light.hpp"
 
 class MyApplication : public Application {
 public:
