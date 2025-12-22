@@ -20,10 +20,6 @@ MyApplication::MyApplication():
     // map
     const Model towerScene("../assets/map.obj");
     mapModels.push_back(towerScene);
-    const Model portal("../assets/portal.obj", glm::vec3(0.0f, -1.6f, -42.0f));
-    mapModels.push_back(portal);
-
-    entities.push_back(std::make_unique<Ghost>());
     //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
     //entities.push_back(testTower);
 
@@ -61,16 +57,12 @@ void MyApplication::loop() {
     for (auto entity: mapModels) {
         entity.draw(shaderProgram);
     }
-    for (auto& entity: entities) {
-        entity->draw(shaderProgram);
-    }
+    spawnGate.drawAllEnemies(shaderProgram);
     shaderProgram.unuse();
 }
 
 void MyApplication::animate() {
-    for (auto& entity: entities) {
-        entity->update(getFrameDeltaTime());
-    }
+    spawnGate.updateAllEnemies(getFrameDeltaTime());
 }
 
 void MyApplication::processInput() {

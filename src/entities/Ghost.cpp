@@ -1,6 +1,6 @@
 ﻿#include "Ghost.hpp"
 
-Ghost::Ghost() : Entity("../assets/ghost.obj", glm::vec3(0.0f, 3.0f, -50.0f)) {
+Ghost::Ghost(int id, glm::vec3 pos) : Entity("../assets/ghost.obj", pos), id(id) {
 }
 
 void Ghost::update(float deltaTime) {

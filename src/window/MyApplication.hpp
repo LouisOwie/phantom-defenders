@@ -12,9 +12,8 @@
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
 #include "../model/Model.hpp"
-#include "../entities/Entity.hpp"
+#include "../scene/SpawnGate.hpp"
 #include <vector>
-#include <memory>
 #include "../scene/Camera.hpp"
 #include "../scene/Light.hpp"
 
@@ -30,7 +29,7 @@ private:
     Camera cam;
     Light sun;
     std::vector<Model> mapModels;
-    std::vector<std::unique_ptr<Entity>> entities;
+    SpawnGate spawnGate;
 
     // shader
     Shader vertexShader;
