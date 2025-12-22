@@ -1,10 +1,3 @@
-/**
- * MyApplication.cpp
- * Contributors:
- *      * Arthur Sonzogni (author)
- * Licence:
- *      * MIT
- */
 #include "MyApplication.hpp"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -13,19 +6,29 @@
 #include "../utils/glError.hpp"
 
 MyApplication::MyApplication():
-    cam(Camera(glm::vec3(0.0, 5.0, -20.0),
+    cam(Camera(glm::vec3(-25.0, 50.0, 0.0),
                  glm::vec3(0.0, 5.0, 0.0),
                  glm::vec3(0.0, 1.0, 0.0),
-                 30.0f, 0.1f, 100.0f)),
-    sun(Light(glm::vec3(20.0,35.0,3.0))),
+                 30.0f, 0.1f, 500.0f)),
+    sun(Light(glm::vec3(10.0,60.0,20.0))),
     vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
     fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
-    const Model towerModel("../assets/testTower.obj");
-    entities.resize(1, towerModel);
+    const Model towerScene("../assets/map.obj");
+    const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
+    entities.resize(2, towerScene);
+    entities.push_back(testTower);
 }
+
+/*
+ *tower positions::
+ *vec3(-7.8f, 3.3f, 0.0f)
+ *vec3(11.0f, 3.3f, -0.3f)
+ *vec3(-7.8f, 3.3f, 19.4f)
+ *vec3(-7.8f, 3.3f, -19.5f)
+*/
 
 void MyApplication::loop() {
 
@@ -48,7 +51,7 @@ void MyApplication::loop() {
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
     for (auto entity: entities) {
-        entity.draw(projection, view, shaderProgram);
+        entity.draw(shaderProgram);
     }
     shaderProgram.unuse();
 }
@@ -69,4 +72,8 @@ void MyApplication::processInput(float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cam.handleInput('d', deltaTime);
 
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+        cam.handleInput('f', deltaTime);
+    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+        cam.handleInput('k', deltaTime);
 }

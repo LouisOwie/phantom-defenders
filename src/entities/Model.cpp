@@ -6,13 +6,13 @@
 #include <filesystem>
 #include <stb_image.h>
 
-Model::Model(std::string path) {
+Model::Model(std::string path, glm::vec3 pos) : pos(pos) {
     loadModel(path);
 }
 
-void Model::draw(glm::mat4 projection, glm::mat4 view, ShaderProgram &shaderProgram) {
+void Model::draw(ShaderProgram &shaderProgram) {
     for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].draw(projection, view, shaderProgram);
+        meshes[i].draw(shaderProgram);
 }
 
 void Model::loadModel(std::string path) {
@@ -48,8 +48,8 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
         Vertex vertex;
-        glm::vec3 position(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-        vertex.position = position;
+        glm::vec3 vPosition(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+        vertex.position = vPosition + pos;
         glm::vec3 normal(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
         vertex.normal = normal;
         if (mesh->mTextureCoords[0]) {
@@ -79,6 +79,18 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene) {
         std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         std::cout << "Loaded " << specularMaps.size() << " specular textures" << std::endl;
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
+        if (diffuseMaps.empty()) {
+            aiColor3D kd(0,0,0);
+            if (AI_SUCCESS == material->Get(AI_MATKEY_COLOR_DIFFUSE, kd)) {
+                Texture kdTexture;
+                kdTexture.id = 0;
+                kdTexture.type = "kd_color";
+                kdTexture.path = "";
+                kdTexture.color = glm::vec3(kd.r, kd.g, kd.b);
+                textures.push_back(kdTexture);
+            }
+        }
     }
     return Mesh(vertices, indices, textures);
 }
@@ -99,7 +111,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType 
     return textures;
 }
 
-unsigned int Model::textureFromFile(const std::string path, const std::string &directory)
+unsigned int Model::textureFromFile(std::string path, const std::string &directory)
 {
     // load and generate the texture
     std::string filename = directory + "/" + path;

@@ -16,12 +16,13 @@ struct Texture {
     unsigned int id;
     std::string type;
     aiString path;
+    glm::vec3 color;
 };
 
 class Mesh {
 public:
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    void draw(glm::mat4 projection, glm::mat4 view, ShaderProgram& shaderProgram);
+    void draw(ShaderProgram& shaderProgram);
 private:
     // mesh data
     std::vector<Vertex> vertices;

@@ -10,6 +10,7 @@ uniform sampler2D texture_diffuse;
 uniform sampler2D texture_specular;
 uniform bool hasTexture;
 uniform bool hasSpecularTexture;
+uniform vec3 kd_color;
 
 // output
 out vec4 color;
@@ -29,8 +30,11 @@ void main(void)
     if (hasTexture) {
         baseColor = texture(texture_diffuse, fTexCoords);
     }
+    else {
+        baseColor = vec4(kd_color, 1.0);
+    }
 
-    vec4 specularMap = vec4(1.0);
+    vec4 specularMap = vec4(0.5, 0.5, 0.5, 1.0);
     if (hasSpecularTexture) {
         specularMap = texture(texture_specular, fTexCoords);
     }

@@ -8,9 +8,10 @@
 
 class Model {
 public:
-    Model(std::string path);
-    void draw(glm::mat4 projection, glm::mat4 view, ShaderProgram& shaderProgram);
+    Model(std::string path, glm::vec3 pos = glm::vec3(0.0f));
+    void draw(ShaderProgram& shaderProgram);
 private:
+    glm::vec3 pos;
     std::vector<Mesh> meshes;
     std::string directory;
 
@@ -22,6 +23,6 @@ private:
 
     std::vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 
-    unsigned int textureFromFile(const std::string path, const std::string &directory);
+    unsigned int textureFromFile(std::string path, const std::string &directory);
 };
 #endif //PHANTOM_DEFENDERS_MODEL_HPP
