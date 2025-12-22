@@ -21,6 +21,10 @@ add_executable(phantom-defenders
         src/entities/Mesh.hpp
         src/entities/Light.cpp
         src/entities/Light.hpp
+        src/entities/Ghost.cpp
+        src/entities/Ghost.hpp
+        src/entities/Entity.cpp
+        src/entities/Entity.hpp
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/src/assets)

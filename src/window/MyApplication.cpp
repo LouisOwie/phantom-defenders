@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "asset.hpp"
 #include "../utils/glError.hpp"
+#include "../entities/Ghost.hpp"
 
 MyApplication::MyApplication():
     cam(Camera(glm::vec3(-25.0, 50.0, 0.0),
@@ -16,10 +17,17 @@ MyApplication::MyApplication():
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
+    // map
     const Model towerScene("../assets/map.obj");
-    const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
-    entities.resize(2, towerScene);
-    entities.push_back(testTower);
+    entities.push_back(towerScene);
+    const Model portal("../assets/portal.obj", glm::vec3(0.0f, -1.6f, -42.0f));
+    entities.push_back(portal);
+
+    Ghost testGhost = Ghost();
+    entities.push_back(testGhost.getModel());
+    //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
+    //entities.push_back(testTower);
+
 }
 
 /*
