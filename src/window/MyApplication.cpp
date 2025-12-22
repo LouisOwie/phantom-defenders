@@ -19,12 +19,12 @@ MyApplication::MyApplication():
     glCheckError(__FILE__, __LINE__);
     // map
     const Model towerScene("../assets/map.obj");
-    entities.push_back(towerScene);
+    mapModels.push_back(towerScene);
     const Model portal("../assets/portal.obj", glm::vec3(0.0f, -1.6f, -42.0f));
-    entities.push_back(portal);
+    mapModels.push_back(portal);
 
-    Ghost testGhost = Ghost();
-    entities.push_back(testGhost.getModel());
+    const Ghost testGhost = Ghost();
+    entities.push_back(testGhost);
     //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
     //entities.push_back(testTower);
 
@@ -58,8 +58,11 @@ void MyApplication::loop() {
     shaderProgram.setUniform("view", view);
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
-    for (auto entity: entities) {
+    for (auto entity: mapModels) {
         entity.draw(shaderProgram);
+    }
+    for (auto entity: entities) {
+        entity.getModel().draw(shaderProgram);
     }
     shaderProgram.unuse();
 }

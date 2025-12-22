@@ -12,6 +12,7 @@
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
 #include "../entities/Model.hpp"
+#include "../entities/Entity.hpp"
 #include <vector>
 #include "../entities/Camera.hpp"
 #include "../entities/Light.hpp"
@@ -27,7 +28,8 @@ private:
     // scene entities
     Camera cam;
     Light sun;
-    std::vector<Model> entities;
+    std::vector<Model> mapModels;
+    std::vector<Entity> entities;
 
     // shader
     Shader vertexShader;
