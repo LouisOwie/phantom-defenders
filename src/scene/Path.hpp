@@ -6,7 +6,7 @@
 class Path {
 public:
     Path();
-    Path(std::vector<glm::vec3> points);
+    Path(const std::vector<glm::vec3>& points);
     glm::vec3 getPoint();
     void deletePoint();
     bool isEmpty();
