@@ -61,6 +61,7 @@ glm::vec3 Path::getPoint() {
     if (!isEmpty()){
         return points[0];
     }
+    return glm::vec3(0.0f);
 }
 
 void Path::deletePoint() {
