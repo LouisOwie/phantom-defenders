@@ -1,11 +1,11 @@
 ﻿#include "SpawnGate.hpp"
 #include "../model/ModelManager.hpp"
 
-SpawnGate::SpawnGate(): Entity(ModelManager::portalModel) {
+SpawnGate::SpawnGate(glm::vec3 pos): Entity(ModelManager::portalModel, pos) {
 }
 
 void SpawnGate::update(float deltaTime) {
-    // Spawn an enemy every 2 seconds
+    // Spawn an enemy every spawnInterval seconds
     spawnTimer += deltaTime;
     if (spawnTimer >= spawnInterval) {
         spawnEnemy();

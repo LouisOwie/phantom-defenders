@@ -6,7 +6,7 @@
 
 class SpawnGate: public Entity {
 public:
-    SpawnGate();
+    SpawnGate(glm::vec3 pos);
     void update(float deltaTime) override;
     void draw(ShaderProgram& shaderProgram);
 private:

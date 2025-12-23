@@ -21,20 +21,7 @@ MyApplication::MyApplication():
     ModelManager::loadModels();
 
     // map
-    const auto towerScene = std::make_shared<Model>("../assets/map.obj");
-    mapModels.push_back(towerScene);
-    const auto platform1 = std::make_shared<Platform>(glm::vec3(-9.3f, 3.3f, -0.1f));
-    platforms.push_back(platform1);
-    const auto platform2 = std::make_shared<Platform>(glm::vec3(9.5f, 3.3f, -0.1f));
-    platforms.push_back(platform2);
-    const auto platform3 = std::make_shared<Platform>(glm::vec3(-9.3f, 3.3f, 19.4f));
-    platforms.push_back(platform3);
-    const auto platform4 = std::make_shared<Platform>(glm::vec3(-9.3f, 3.3f, -19.5f));
-    platforms.push_back(platform4);
-
-
-    // spawn gate
-    spawnGate = std::make_shared<SpawnGate>();
+    world = std::make_shared<World>();
 }
 
 void MyApplication::loop() {
@@ -58,18 +45,13 @@ void MyApplication::loop() {
     shaderProgram.setUniform("view", view);
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
-    for (const auto& model: mapModels) {
-        model->draw(shaderProgram);
-    }
-    for (const auto& platform: platforms) {
-        platform->draw(shaderProgram);
-    }
-    spawnGate->draw(shaderProgram);
+    world->draw(shaderProgram);
+
     shaderProgram.unuse();
 }
 
 void MyApplication::animate() {
-    spawnGate->update(getFrameDeltaTime());
+    world->update(getFrameDeltaTime());
 }
 
 void MyApplication::processInput() {
