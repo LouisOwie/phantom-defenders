@@ -2,20 +2,27 @@
 #include "../model/ModelManager.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
-Ghost::Ghost(int id, glm::vec3 pos) : Entity(ModelManager::ghostModel, pos), id(id) {
+Ghost::Ghost(int id, glm::vec3 pos) : Entity(ModelManager::ghostModel, pos), id(id), path(Path()) {
+    path = Path({
+        glm::vec3(0.0f, 3.0f, -45.0f),
+        glm::vec3(0.0f, 3.0f, 8.8f),
+        glm::vec3(-17.3f, 3.0f, 8.8f),
+        glm::vec3(-17.3f, 3.0f, -8.8f),
+        glm::vec3(0.0f, 3.0f, -8.8f),
+        glm::vec3(0.0f, 3.0f, 50.0f),
+    });
 }
 
 void Ghost::update(float deltaTime) {
-    const glm::vec3 toPathPoint = path[0] - pos;
+    const glm::vec3 toPathPoint = path.getPoint() - pos;
     const glm::vec3 direction = glm::normalize(toPathPoint);
     const float distance = glm::length(toPathPoint);
     pos += direction * speed * deltaTime;
     yaw = atan2(direction.x, direction.z);
     if (distance < 0.1f) {
-        pos = path[0];
-        path.erase(path.begin());
+        path.deletePoint();
     }
-    if (path.empty()) {
+    if (path.isEmpty()) {
         alive = false;
     }
 }
