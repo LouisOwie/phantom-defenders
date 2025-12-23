@@ -1,7 +1,7 @@
 ﻿#include "Path.hpp"
 
 Path::Path() = default;
-Path::Path(std::vector<glm::vec3> points): points(points) {
+Path::Path(const std::vector<glm::vec3>& points): points(points) {
     calculatePathPoints(points);
 }
 

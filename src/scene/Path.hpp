@@ -12,6 +12,6 @@ public:
     bool isEmpty();
 private:
     std::vector<glm::vec3> points;
-    void calculatePathPoints(std::vector<glm::vec3> points);
+    void calculatePathPoints(const std::vector<glm::vec3>& points);
 };
 #endif //PHANTOM_DEFENDERS_PATH_HPP
