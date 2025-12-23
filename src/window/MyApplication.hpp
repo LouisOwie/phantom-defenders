@@ -12,10 +12,9 @@
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
 #include "../model/Model.hpp"
-#include "../scene/SpawnGate.hpp"
-#include <vector>
 #include "../scene/Camera.hpp"
 #include "../scene/Light.hpp"
+#include "scene/World.hpp"
 
 class MyApplication : public Application {
 public:
@@ -28,8 +27,7 @@ private:
     // scene entities
     Camera cam;
     Light sun;
-    std::vector<std::shared_ptr<Model>> mapModels;
-    std::shared_ptr<SpawnGate> spawnGate;
+    std::shared_ptr<World> world;
 
     // shader
     Shader vertexShader;

@@ -9,7 +9,7 @@ public:
     virtual ~Entity() = default;
     std::shared_ptr<Model> getModel();
 
-    virtual void draw(ShaderProgram &shaderProgram) = 0;
+    virtual void draw(ShaderProgram &shaderProgram);
     virtual void update(float deltaTime) = 0;
 
     // getter/setter
@@ -17,5 +17,6 @@ public:
 protected:
     std::shared_ptr<Model> model;
     glm::vec3 pos;
+    float yaw = 0.0f;
 };
 #endif //PHANTOM_DEFENDERS_ENTITY_HPP

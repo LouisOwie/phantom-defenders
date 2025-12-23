@@ -21,23 +21,8 @@ MyApplication::MyApplication():
     ModelManager::loadModels();
 
     // map
-    const std::shared_ptr<Model> towerScene = std::make_shared<Model>("../assets/map.obj");
-    mapModels.push_back(towerScene);
-
-    // spawn gate
-    spawnGate = std::make_shared<SpawnGate>();
-    //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
-    //entities.push_back(testTower);
-
+    world = std::make_shared<World>();
 }
-
-/*
- *tower positions::
- *vec3(-7.8f, 3.3f, 0.0f)
- *vec3(11.0f, 3.3f, -0.3f)
- *vec3(-7.8f, 3.3f, 19.4f)
- *vec3(-7.8f, 3.3f, -19.5f)
-*/
 
 void MyApplication::loop() {
 
@@ -60,15 +45,13 @@ void MyApplication::loop() {
     shaderProgram.setUniform("view", view);
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
-    for (const auto& model: mapModels) {
-        model->draw(shaderProgram);
-    }
-    spawnGate->drawAllEnemies(shaderProgram);
+    world->draw(shaderProgram);
+
     shaderProgram.unuse();
 }
 
 void MyApplication::animate() {
-    spawnGate->updateAllEnemies(getFrameDeltaTime());
+    world->update(getFrameDeltaTime());
 }
 
 void MyApplication::processInput() {
