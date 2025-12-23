@@ -8,7 +8,7 @@ public:
     virtual ~Entity() = default;
     Model* getModel();
 
-    void draw(ShaderProgram &shaderProgram);
+    virtual void draw(ShaderProgram &shaderProgram) = 0;
     virtual void update(float deltaTime) = 0;
 
     // getter/setter
