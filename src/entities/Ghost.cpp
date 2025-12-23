@@ -2,7 +2,7 @@
 #include "../model/ModelManager.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 
-Ghost::Ghost(int id, glm::vec3 pos) : Entity(ModelManager::ghostModel, pos), id(id), path(Path()) {
+Ghost::Ghost(int id, glm::vec3 pos, float speed, int health) : Entity(ModelManager::ghostModel, pos), id(id), speed(speed), health(health), path(Path()) {
     path = Path({
         glm::vec3(0.0f, 3.0f, -45.0f),
         glm::vec3(0.0f, 3.0f, 8.8f),
@@ -11,6 +11,13 @@ Ghost::Ghost(int id, glm::vec3 pos) : Entity(ModelManager::ghostModel, pos), id(
         glm::vec3(0.0f, 3.0f, -8.8f),
         glm::vec3(0.0f, 3.0f, 50.0f),
     });
+}
+
+void Ghost::gotHit(int damage) {
+    health -= damage;
+    if (health <= 0) {
+        alive = false;
+    }
 }
 
 void Ghost::update(float deltaTime) {

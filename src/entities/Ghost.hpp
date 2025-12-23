@@ -5,7 +5,10 @@
 
 class Ghost: public Entity {
 public:
-    Ghost(int id, glm::vec3 pos);
+    Ghost(int id, glm::vec3 pos, float speed = 5.0f, int health = 3);
+
+    void gotHit(int damage);
+
     void update(float deltaTime) override;
     void draw(ShaderProgram &shaderProgram) override;
 
@@ -14,7 +17,8 @@ public:
     bool isAlive() { return alive; }
 private:
     int id;
-    float speed = 5.0f;
+    float speed;
+    int health;
     float yaw = 0.0f;
     bool alive = true;
     Path path;
