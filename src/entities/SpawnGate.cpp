@@ -1,9 +1,10 @@
 ﻿#include "SpawnGate.hpp"
+#include "../model/ModelManager.hpp"
 
-SpawnGate::SpawnGate(): model("../assets/portal.obj", glm::vec3(0.0f, -1.6f, -42.0f)) {
+SpawnGate::SpawnGate(): Entity(ModelManager::portalModel) {
 }
 
-void SpawnGate::updateAllEnemies(const float deltaTime) {
+void SpawnGate::update(float deltaTime) {
     // Spawn an enemy every 2 seconds
     spawnTimer += deltaTime;
     if (spawnTimer >= spawnInterval) {
@@ -21,8 +22,8 @@ void SpawnGate::updateAllEnemies(const float deltaTime) {
                   });
 }
 
-void SpawnGate::drawAllEnemies(ShaderProgram& shaderProgram) {
-    model.draw(shaderProgram);
+void SpawnGate::draw(ShaderProgram& shaderProgram) {
+    Entity::draw(shaderProgram);
     for (const auto& enemy: enemies) {
         enemy->draw(shaderProgram);
     }

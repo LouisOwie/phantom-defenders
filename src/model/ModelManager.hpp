@@ -7,6 +7,9 @@ class ModelManager {
 public:
     // models
     static inline std::shared_ptr<Model> ghostModel;
+    static inline std::shared_ptr<Model> platformModel;
+    static inline std::shared_ptr<Model> selectedPlatformModel;
+    static inline std::shared_ptr<Model> portalModel;
 
     static void loadModels();
 };

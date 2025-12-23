@@ -1,6 +1,8 @@
 ﻿#ifndef PHANTOM_DEFENDERS_PLATFORM_HPP
 #define PHANTOM_DEFENDERS_PLATFORM_HPP
 class Platform {
+public:
+private:
 
 };
 #endif //PHANTOM_DEFENDERS_PLATFORM_HPP

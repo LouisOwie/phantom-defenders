@@ -10,7 +10,6 @@ public:
     void gotHit(int damage);
 
     void update(float deltaTime) override;
-    void draw(ShaderProgram &shaderProgram) override;
 
     // getter/setter
     int getId() { return id; }
@@ -19,7 +18,6 @@ private:
     int id;
     float speed;
     int health;
-    float yaw = 0.0f;
     bool alive = true;
     Path path;
 };

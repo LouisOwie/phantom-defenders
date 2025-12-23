@@ -1,15 +1,14 @@
 ﻿#include "Ghost.hpp"
 #include "../model/ModelManager.hpp"
-#include <glm/gtc/matrix_transform.hpp>
 
 Ghost::Ghost(int id, glm::vec3 pos, float speed, int health): Entity(ModelManager::ghostModel, pos), id(id), speed(speed), health(health),
     path(Path({
-            glm::vec3(0.0f, 3.2f, -45.0f),
-            glm::vec3(0.0f, 3.2f, 8.8f),
-            glm::vec3(-17.3f, 3.2f, 8.8f),
-            glm::vec3(-17.3f, 3.2f, -8.8f),
-            glm::vec3(0.0f, 3.2f, -8.8f),
-            glm::vec3(0.0f, 3.2f, 50.0f),
+            glm::vec3(0.0f, 3.3f, -45.0f),
+            glm::vec3(0.0f, 3.3f, 8.8f),
+            glm::vec3(-17.3f, 3.3f, 8.8f),
+            glm::vec3(-17.3f, 3.3f, -8.8f),
+            glm::vec3(0.0f, 3.3f, -8.8f),
+            glm::vec3(0.0f, 3.3f, 50.0f),
         })) {
 }
 
@@ -32,12 +31,5 @@ void Ghost::update(float deltaTime) {
     if (path.isEmpty()) {
         alive = false;
     }
-}
-
-void Ghost::draw(ShaderProgram &shaderProgram) {
-    auto modelMatrix = glm::mat4(1.0f);
-    modelMatrix = glm::translate(modelMatrix, pos);
-    modelMatrix = glm::rotate(modelMatrix, yaw, glm::vec3(0.0f, 1.0f, 0.0f));
-    model->draw(shaderProgram, modelMatrix);
 }
 

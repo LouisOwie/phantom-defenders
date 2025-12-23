@@ -61,12 +61,12 @@ void MyApplication::loop() {
     for (const auto& model: mapModels) {
         model->draw(shaderProgram);
     }
-    spawnGate->drawAllEnemies(shaderProgram);
+    spawnGate->draw(shaderProgram);
     shaderProgram.unuse();
 }
 
 void MyApplication::animate() {
-    spawnGate->updateAllEnemies(getFrameDeltaTime());
+    spawnGate->update(getFrameDeltaTime());
 }
 
 void MyApplication::processInput() {
