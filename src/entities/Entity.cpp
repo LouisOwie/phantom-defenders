@@ -1,8 +1,8 @@
 ﻿#include "Entity.hpp"
 
 
-Entity::Entity(Model* model, glm::vec3 pos) : model(model), pos(pos) {}
+Entity::Entity(std::shared_ptr<Model> model, glm::vec3 pos) : model(model), pos(pos) {}
 
-Model* Entity::getModel() {
+std::shared_ptr<Model> Entity::getModel() {
     return model;
 }

@@ -21,7 +21,7 @@ MyApplication::MyApplication():
     ModelManager::loadModels();
 
     // map
-    const Model towerScene("../assets/map.obj");
+    const std::shared_ptr<Model> towerScene = std::make_shared<Model>("../assets/map.obj");
     mapModels.push_back(towerScene);
 
     // spawn gate
@@ -60,8 +60,8 @@ void MyApplication::loop() {
     shaderProgram.setUniform("view", view);
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
-    for (auto entity: mapModels) {
-        entity.draw(shaderProgram);
+    for (const auto& model: mapModels) {
+        model->draw(shaderProgram);
     }
     spawnGate->drawAllEnemies(shaderProgram);
     shaderProgram.unuse();

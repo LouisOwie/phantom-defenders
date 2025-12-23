@@ -58,11 +58,15 @@ void Path::calculatePathPoints(std::vector<glm::vec3> points) {
 }
 
 glm::vec3 Path::getPoint() {
-    return points[0];
+    if (!isEmpty()){
+        return points[0];
+    }
 }
 
 void Path::deletePoint() {
-    points.erase(points.begin());
+    if (!isEmpty()) {
+        points.erase(points.begin());
+    }
 }
 
 bool Path::isEmpty() {

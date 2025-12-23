@@ -1,5 +1,5 @@
 ﻿#include "ModelManager.hpp"
 
 void ModelManager::loadModels() {
-    ghostModel = new Model("../assets/ghost.obj");
+    ghostModel = std::make_shared<Model>("../assets/ghost.obj");
 }

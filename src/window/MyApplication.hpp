@@ -28,7 +28,7 @@ private:
     // scene entities
     Camera cam;
     Light sun;
-    std::vector<Model> mapModels;
+    std::vector<std::shared_ptr<Model>> mapModels;
     std::shared_ptr<SpawnGate> spawnGate;
 
     // shader
