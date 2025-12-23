@@ -1,7 +1,7 @@
 ﻿#ifndef PHANTOM_DEFENDERS_GHOST_HPP
 #define PHANTOM_DEFENDERS_GHOST_HPP
 #include "Entity.hpp"
-#include "../scene/Path.hpp"
+#include "Path.hpp"
 
 class Ghost: public Entity {
 public:

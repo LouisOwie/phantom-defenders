@@ -12,7 +12,7 @@
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
 #include "../model/Model.hpp"
-#include "../scene/SpawnGate.hpp"
+#include "../map/SpawnGate.hpp"
 #include <vector>
 #include "../scene/Camera.hpp"
 #include "../scene/Light.hpp"
