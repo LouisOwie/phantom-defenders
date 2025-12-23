@@ -5,7 +5,7 @@ Path::Path(std::vector<glm::vec3> points): points(points) {
     calculatePathPoints(points);
 }
 
-void Path::calculatePathPoints(std::vector<glm::vec3> points) {
+void Path::calculatePathPoints(const std::vector<glm::vec3>& points) {
     if (points.size() < 2) {
         this->points = points;
         return;
