@@ -13,6 +13,7 @@
 #include "../utils/Shader.hpp"
 #include "../model/Model.hpp"
 #include "../entities/SpawnGate.hpp"
+#include "../entities/Platform.hpp"
 #include <vector>
 #include "../scene/Camera.hpp"
 #include "../scene/Light.hpp"
@@ -30,6 +31,7 @@ private:
     Light sun;
     std::vector<std::shared_ptr<Model>> mapModels;
     std::shared_ptr<SpawnGate> spawnGate;
+    std::vector<std::shared_ptr<Platform>> platforms;
 
     // shader
     Shader vertexShader;
