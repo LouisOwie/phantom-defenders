@@ -29,7 +29,7 @@ private:
     Camera cam;
     Light sun;
     std::vector<Model> mapModels;
-    SpawnGate spawnGate;
+    std::shared_ptr<SpawnGate> spawnGate;
 
     // shader
     Shader vertexShader;

@@ -19,9 +19,13 @@ MyApplication::MyApplication():
     glCheckError(__FILE__, __LINE__);
 
     ModelManager::loadModels();
+
     // map
     const Model towerScene("../assets/map.obj");
     mapModels.push_back(towerScene);
+
+    // spawn gate
+    spawnGate = std::make_shared<SpawnGate>();
     //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
     //entities.push_back(testTower);
 
@@ -59,12 +63,12 @@ void MyApplication::loop() {
     for (auto entity: mapModels) {
         entity.draw(shaderProgram);
     }
-    spawnGate.drawAllEnemies(shaderProgram);
+    spawnGate->drawAllEnemies(shaderProgram);
     shaderProgram.unuse();
 }
 
 void MyApplication::animate() {
-    spawnGate.updateAllEnemies(getFrameDeltaTime());
+    spawnGate->updateAllEnemies(getFrameDeltaTime());
 }
 
 void MyApplication::processInput() {
