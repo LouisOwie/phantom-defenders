@@ -21,23 +21,21 @@ MyApplication::MyApplication():
     ModelManager::loadModels();
 
     // map
-    const std::shared_ptr<Model> towerScene = std::make_shared<Model>("../assets/map.obj");
+    const auto towerScene = std::make_shared<Model>("../assets/map.obj");
     mapModels.push_back(towerScene);
+    const auto platform1 = std::make_shared<Model>("../assets/platform.obj", glm::vec3(-9.3f, 3.3f, -0.1f));
+    mapModels.push_back(platform1);
+    const auto platform2 = std::make_shared<Model>("../assets/platform.obj", glm::vec3(9.5f, 3.3f, -0.1f));
+    mapModels.push_back(platform2);
+    const auto platform3 = std::make_shared<Model>("../assets/platform.obj", glm::vec3(-9.3f, 3.3f, 19.4f));
+    mapModels.push_back(platform3);
+    const auto platform4 = std::make_shared<Model>("../assets/platform.obj", glm::vec3(-9.3f, 3.3f, -19.5f));
+    mapModels.push_back(platform4);
+
 
     // spawn gate
     spawnGate = std::make_shared<SpawnGate>();
-    //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
-    //entities.push_back(testTower);
-
 }
-
-/*
- *tower positions::
- *vec3(-7.8f, 3.3f, 0.0f)
- *vec3(11.0f, 3.3f, -0.3f)
- *vec3(-7.8f, 3.3f, 19.4f)
- *vec3(-7.8f, 3.3f, -19.5f)
-*/
 
 void MyApplication::loop() {
 

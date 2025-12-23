@@ -11,7 +11,7 @@ public:
 private:
     Model model;
     std::vector<std::shared_ptr<Ghost>> enemies;
-    glm::vec3 spawnLocation = glm::vec3(0.0f, 3.0f, -50.0f);
+    glm::vec3 spawnLocation = glm::vec3(0.0f, 3.2f, -50.0f);
 
     int idCounter = 0;
     float spawnTimer = 0.0f;

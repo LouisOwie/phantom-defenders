@@ -4,12 +4,12 @@
 
 Ghost::Ghost(int id, glm::vec3 pos, float speed, int health): Entity(ModelManager::ghostModel, pos), id(id), speed(speed), health(health),
     path(Path({
-            glm::vec3(0.0f, 3.0f, -45.0f),
-            glm::vec3(0.0f, 3.0f, 8.8f),
-            glm::vec3(-17.3f, 3.0f, 8.8f),
-            glm::vec3(-17.3f, 3.0f, -8.8f),
-            glm::vec3(0.0f, 3.0f, -8.8f),
-            glm::vec3(0.0f, 3.0f, 50.0f),
+            glm::vec3(0.0f, 3.2f, -45.0f),
+            glm::vec3(0.0f, 3.2f, 8.8f),
+            glm::vec3(-17.3f, 3.2f, 8.8f),
+            glm::vec3(-17.3f, 3.2f, -8.8f),
+            glm::vec3(0.0f, 3.2f, -8.8f),
+            glm::vec3(0.0f, 3.2f, 50.0f),
         })) {
 }
 
