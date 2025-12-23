@@ -13,14 +13,24 @@ add_executable(phantom-defenders
         src/main.cpp
         src/utils/Shader.cpp
         src/utils/Shader.hpp
-        src/entities/Camera.cpp
-        src/entities/Camera.hpp
-        src/entities/Model.cpp
-        src/entities/Model.hpp
-        src/entities/Mesh.cpp
-        src/entities/Mesh.hpp
-        src/entities/Light.cpp
-        src/entities/Light.hpp
+        src/scene/Camera.cpp
+        src/scene/Camera.hpp
+        src/model/Model.cpp
+        src/model/Model.hpp
+        src/model/Mesh.cpp
+        src/model/Mesh.hpp
+        src/scene/Light.cpp
+        src/scene/Light.hpp
+        src/entities/Ghost.cpp
+        src/entities/Ghost.hpp
+        src/entities/Entity.cpp
+        src/entities/Entity.hpp
+        src/scene/SpawnGate.cpp
+        src/scene/SpawnGate.hpp
+        src/model/ModelManager.cpp
+        src/model/ModelManager.hpp
+        src/scene/Path.cpp
+        src/scene/Path.hpp
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/src/assets)

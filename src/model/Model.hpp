@@ -9,7 +9,7 @@
 class Model {
 public:
     Model(std::string path, glm::vec3 pos = glm::vec3(0.0f));
-    void draw(ShaderProgram& shaderProgram);
+    void draw(ShaderProgram& shaderProgram, glm::mat4 modelMatrix = glm::mat4(1.0));
 private:
     glm::vec3 pos;
     std::vector<Mesh> meshes;

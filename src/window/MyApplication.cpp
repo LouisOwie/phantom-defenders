@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "asset.hpp"
 #include "../utils/glError.hpp"
+#include "../model/ModelManager.hpp"
 
 MyApplication::MyApplication():
     cam(Camera(glm::vec3(-25.0, 50.0, 0.0),
@@ -16,10 +17,18 @@ MyApplication::MyApplication():
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
-    const Model towerScene("../assets/map.obj");
-    const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
-    entities.resize(2, towerScene);
-    entities.push_back(testTower);
+
+    ModelManager::loadModels();
+
+    // map
+    const std::shared_ptr<Model> towerScene = std::make_shared<Model>("../assets/map.obj");
+    mapModels.push_back(towerScene);
+
+    // spawn gate
+    spawnGate = std::make_shared<SpawnGate>();
+    //const Model testTower("../assets/testTower.obj", glm::vec3(-7.8f, 3.3f, 0.0f));
+    //entities.push_back(testTower);
+
 }
 
 /*
@@ -32,7 +41,8 @@ MyApplication::MyApplication():
 
 void MyApplication::loop() {
 
-    processInput(getFrameDeltaTime());
+    processInput();
+    animate();
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
@@ -50,13 +60,18 @@ void MyApplication::loop() {
     shaderProgram.setUniform("view", view);
     shaderProgram.setUniform("lightPos", sun.getPosition());
 
-    for (auto entity: entities) {
-        entity.draw(shaderProgram);
+    for (const auto& model: mapModels) {
+        model->draw(shaderProgram);
     }
+    spawnGate->drawAllEnemies(shaderProgram);
     shaderProgram.unuse();
 }
 
-void MyApplication::processInput(float deltaTime) {
+void MyApplication::animate() {
+    spawnGate->updateAllEnemies(getFrameDeltaTime());
+}
+
+void MyApplication::processInput() {
 
     GLFWwindow* window = getWindow();
     // exit on window close button pressed
@@ -64,16 +79,16 @@ void MyApplication::processInput(float deltaTime) {
         exit();
 
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cam.handleInput('w', deltaTime);
+        cam.handleInput('w', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cam.handleInput('s', deltaTime);
+        cam.handleInput('s', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cam.handleInput('a', deltaTime);
+        cam.handleInput('a', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cam.handleInput('d', deltaTime);
+        cam.handleInput('d', getFrameDeltaTime());
 
     if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-        cam.handleInput('f', deltaTime);
+        cam.handleInput('f', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-        cam.handleInput('k', deltaTime);
+        cam.handleInput('k', getFrameDeltaTime());
 }

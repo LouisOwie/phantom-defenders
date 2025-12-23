@@ -11,10 +11,11 @@
 
 #include "Application.hpp"
 #include "../utils/Shader.hpp"
-#include "../entities/Model.hpp"
+#include "../model/Model.hpp"
+#include "../scene/SpawnGate.hpp"
 #include <vector>
-#include "../entities/Camera.hpp"
-#include "../entities/Light.hpp"
+#include "../scene/Camera.hpp"
+#include "../scene/Light.hpp"
 
 class MyApplication : public Application {
 public:
@@ -27,7 +28,8 @@ private:
     // scene entities
     Camera cam;
     Light sun;
-    std::vector<Model> entities;
+    std::vector<std::shared_ptr<Model>> mapModels;
+    std::shared_ptr<SpawnGate> spawnGate;
 
     // shader
     Shader vertexShader;
@@ -39,7 +41,10 @@ private:
     glm::mat4 view = glm::mat4(1.0);
 
     // input processing
-    void processInput(float deltaTime);
+    void processInput();
+
+    // animation
+    void animate();
 };
 
 #endif  // OPENGL_CMAKE_SKELETON_MYAPPLICATION

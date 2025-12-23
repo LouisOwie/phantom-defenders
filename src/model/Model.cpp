@@ -10,9 +10,9 @@ Model::Model(std::string path, glm::vec3 pos) : pos(pos) {
     loadModel(path);
 }
 
-void Model::draw(ShaderProgram &shaderProgram) {
+void Model::draw(ShaderProgram &shaderProgram, glm::mat4 modelMatrix) {
     for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].draw(shaderProgram);
+        meshes[i].draw(shaderProgram, modelMatrix);
 }
 
 void Model::loadModel(std::string path) {

@@ -22,7 +22,7 @@ struct Texture {
 class Mesh {
 public:
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    void draw(ShaderProgram& shaderProgram);
+    void draw(ShaderProgram& shaderProgram, glm::mat4 modelMatrix);
 private:
     // mesh data
     std::vector<Vertex> vertices;
