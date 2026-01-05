@@ -29,8 +29,6 @@ add_executable(phantom-defenders
         src/entities/SpawnGate.hpp
         src/model/ModelManager.cpp
         src/model/ModelManager.hpp
-        src/entities/Path.cpp
-        src/entities/Path.hpp
         src/entities/Platform.cpp
         src/entities/Platform.hpp
         src/scene/World.cpp
