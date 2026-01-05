@@ -28,7 +28,6 @@ void World::update(float deltaTime) {
 }
 
 void World::handleInput(std::string key) {
-    std::cout << key << std::endl;
     for (const auto& platform: platforms) {
         platform->deselect();
     }

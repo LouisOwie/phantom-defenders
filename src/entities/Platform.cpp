@@ -26,7 +26,7 @@ void Platform::deselect() {
 }
 
 void Platform::upgrade() {
-    if (level >=4 || World::gold < priceTable[level%4]) {
+    if (level >=4 || World::gold < priceTable[level]) {
         return;
     }
     World::gold -= priceTable[level];
