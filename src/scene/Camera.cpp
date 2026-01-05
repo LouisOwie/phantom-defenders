@@ -8,7 +8,7 @@ glm::mat4 Camera::getViewMatrix() {
     return glm::lookAt(position, target, up);
 }
 
-glm::mat4 Camera::getProjectionMatrix(float aspect) {
+glm::mat4 Camera::getProjectionMatrix() {
     return glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
 }
 
@@ -41,4 +41,8 @@ void Camera::handleInput(char key, float deltaTime) {
         default:
             break;
     }
+}
+
+void Camera::setAspect(float aspectRatio) {
+    aspect = aspectRatio;
 }

@@ -9,11 +9,14 @@ public:
 
     // get view and projection matrices
     glm::mat4 getViewMatrix();
-    glm::mat4 getProjectionMatrix(float aspect);
+    glm::mat4 getProjectionMatrix();
 
     // process keyboard inputs
     void handleInput(char key, float deltaTime);
+
+    void setAspect(float aspectRatio);
 private:
+    float aspect;
     // camera parameters
     glm::vec3 position;
     glm::vec3 target;
