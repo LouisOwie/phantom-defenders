@@ -11,8 +11,13 @@ public:
 
     void update(float deltaTime) override;
     void draw(ShaderProgram &shaderProgram) override;
+
+    void handleInput(std::string key);
+
+    static int gold;
 private:
     std::shared_ptr<SpawnGate> spawnGate;
     std::vector<std::shared_ptr<Platform>> platforms;
+    std::shared_ptr<Platform> selectedPlatform;
 };
 #endif //PHANTOM_DEFENDERS_WORLD_HPP

@@ -25,8 +25,8 @@ protected:
 
 private:
     // scene entities
-    Camera cam;
-    Light sun;
+    std::shared_ptr<Camera> cam;
+    std::shared_ptr<Light> sun;
     std::shared_ptr<World> world;
 
     // shader
@@ -39,10 +39,8 @@ private:
     glm::mat4 view = glm::mat4(1.0);
 
     // input processing
+    bool keyPressed = false;
     void processInput();
-
-    // animation
-    void animate();
 };
 
 #endif  // OPENGL_CMAKE_SKELETON_MYAPPLICATION

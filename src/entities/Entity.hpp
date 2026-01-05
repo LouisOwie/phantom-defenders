@@ -14,8 +14,10 @@ public:
 
     // getter/setter
     glm::vec3 getPos() { return pos;}
+    glm::mat4 getModelMatrix() { return modelMatrix; }
 protected:
     std::shared_ptr<Model> model;
+    glm::mat4 modelMatrix;
     glm::vec3 pos;
     float yaw = 0.0f;
 };

@@ -7,11 +7,11 @@
 #include "../model/ModelManager.hpp"
 
 MyApplication::MyApplication():
-    cam(Camera(glm::vec3(-25.0, 50.0, 0.0),
+    cam(std::make_shared<Camera>(glm::vec3(-25.0, 50.0, 0.0),
                  glm::vec3(0.0, 5.0, 0.0),
                  glm::vec3(0.0, 1.0, 0.0),
                  30.0f, 0.1f, 500.0f)),
-    sun(Light(glm::vec3(10.0,60.0,20.0))),
+    sun(std::make_shared<Light>(glm::vec3(10.0,60.0,20.0))),
     vertexShader(SHADER_DIR "/shader.vert", GL_VERTEX_SHADER),
     fragmentShader(SHADER_DIR "/shader.frag", GL_FRAGMENT_SHADER),
     shaderProgram({vertexShader, fragmentShader}) {
@@ -27,7 +27,7 @@ MyApplication::MyApplication():
 void MyApplication::loop() {
 
     processInput();
-    animate();
+    world->update(getFrameDeltaTime());
 
     // clear
     glClear(GL_COLOR_BUFFER_BIT);
@@ -37,21 +37,18 @@ void MyApplication::loop() {
     shaderProgram.use();
 
     // set matrix : projection + view
-    projection = cam.getProjectionMatrix(getWindowRatio());
-    view = cam.getViewMatrix();
+    cam->setAspect(getWindowRatio());
+    projection = cam->getProjectionMatrix();
+    view = cam->getViewMatrix();
 
     // send uniforms
     shaderProgram.setUniform("projection", projection);
     shaderProgram.setUniform("view", view);
-    shaderProgram.setUniform("lightPos", sun.getPosition());
+    shaderProgram.setUniform("lightPos", sun->getPosition());
 
     world->draw(shaderProgram);
 
     shaderProgram.unuse();
-}
-
-void MyApplication::animate() {
-    world->update(getFrameDeltaTime());
 }
 
 void MyApplication::processInput() {
@@ -61,17 +58,52 @@ void MyApplication::processInput() {
     if (glfwWindowShouldClose(window))
         exit();
 
+    // keyboard input
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cam.handleInput('w', getFrameDeltaTime());
+        cam->handleInput('w', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cam.handleInput('s', getFrameDeltaTime());
+        cam->handleInput('s', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cam.handleInput('a', getFrameDeltaTime());
+        cam->handleInput('a', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cam.handleInput('d', getFrameDeltaTime());
+        cam->handleInput('d', getFrameDeltaTime());
 
     if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-        cam.handleInput('f', getFrameDeltaTime());
+        cam->handleInput('f', getFrameDeltaTime());
     if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-        cam.handleInput('k', getFrameDeltaTime());
+        cam->handleInput('k', getFrameDeltaTime());
+
+    bool currPressed = false;
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+        if (!keyPressed)
+            world->handleInput("left");
+        currPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+        if (!keyPressed)
+            world->handleInput("right");
+        currPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+        if (!keyPressed)
+            world->handleInput("up");
+        currPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        if (!keyPressed)
+            world->handleInput("down");
+        currPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        if (!keyPressed)
+            world->handleInput("space");
+        currPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
+        if (!keyPressed)
+            world->handleInput("enter");
+        currPressed = true;
+    }
+    keyPressed = currPressed;
 }

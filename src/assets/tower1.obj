@@ -1,6 +1,6 @@
 # Blender 4.2.2 LTS
 # www.blender.org
-mtllib testTower.mtl
+mtllib tower1.mtl
 o archer_tower_LVL_1
 v 1.044603 8.954077 -0.758947
 v 0.399003 8.954077 -1.228003

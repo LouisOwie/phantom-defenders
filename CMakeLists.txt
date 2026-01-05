@@ -35,6 +35,8 @@ add_executable(phantom-defenders
         src/entities/Platform.hpp
         src/scene/World.cpp
         src/scene/World.hpp
+        src/entities/Tower.cpp
+        src/entities/Tower.hpp
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/src/assets)
