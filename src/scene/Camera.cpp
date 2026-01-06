@@ -56,7 +56,8 @@ void Camera::adjustPitch(float pitchDelta, float minPitch, float maxPitch, float
     float radius = glm::length(direction);
 
     // Check if direction is valid (not zero)
-    if (radius == 0.0f) {
+    const float epsilon = 1e-6f;
+    if (radius < epsilon) {
         return;
     }
 
@@ -70,11 +71,11 @@ void Camera::adjustPitch(float pitchDelta, float minPitch, float maxPitch, float
     
     // Check if horizontal direction is valid (not zero)
     float horizontalLength = glm::length(horizontalDir);
-    if (horizontalLength == 0.0f) {
+    if (horizontalLength < epsilon) {
         return;
     }
     
-    horizontalDir = horizontalDir / horizontalLength;
+    horizontalDir = glm::normalize(horizontalDir);
 
     position = target + horizontalDir * horizontalDist;
     position.y = target.y + radius * sin(newPitch);
