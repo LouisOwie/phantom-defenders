@@ -13,31 +13,61 @@ glm::mat4 Camera::getProjectionMatrix() {
 }
 
 void Camera::handleInput(char key, float deltaTime) {
-    float speed = 30.0f * deltaTime;
+    const float speed = 30.0f * deltaTime;
 
     switch (key) {
         case 'w':
-            position.x += speed;
-            target.x += speed;
+            if (target.x + speed <= 20.0f) {
+                position.x += speed;
+                target.x += speed;
+            }
             break;
         case 's':
-            position.x -= speed;
-            target.x -= speed;
+            if (target.x - speed >= -12.0f) {
+                position.x -= speed;
+                target.x -= speed;
+            }
             break;
         case 'a':
-            position.z -= speed;
-            target.z -= speed;
+            position.z = glm::max(position.z - speed, -37.0f);
+            target.z = glm::max(target.z - speed, -37.0f);
             break;
         case 'd':
-            position.z += speed;
-            target.z += speed;
+            position.z = glm::min(position.z + speed, 37.0f);
+            target.z = glm::min(target.z + speed, 37.0f);
             break;
-        case 'f':
-            position.y = 12.0f;
+        case 'e': {
+            glm::vec3 direction = position - target;
+            float radius = glm::length(direction);
+
+            float currentPitch = asin(direction.y / radius);
+            float pitchSpeed = 1.5f * deltaTime;
+
+            float newPitch = glm::min(currentPitch + pitchSpeed, glm::radians(89.0f));
+
+            float horizontalDist = radius * cos(newPitch);
+            glm::vec3 horizontalDir = glm::normalize(glm::vec3(direction.x, 0.0f, direction.z));
+
+            position = target + horizontalDir * horizontalDist;
+            position.y = target.y + radius * sin(newPitch);
             break;
-        case 'k':
-            position.y = 50.0f;
+        }
+        case 'q': {
+            glm::vec3 direction = position - target;
+            float radius = glm::length(direction);
+
+            float currentPitch = asin(direction.y / radius);
+            float pitchSpeed = 1.5f * deltaTime;
+
+            float newPitch = glm::max(currentPitch - pitchSpeed, glm::radians(10.0f));
+
+            float horizontalDist = radius * cos(newPitch);
+            glm::vec3 horizontalDir = glm::normalize(glm::vec3(direction.x, 0.0f, direction.z));
+
+            position = target + horizontalDir * horizontalDist;
+            position.y = target.y + radius * sin(newPitch);
             break;
+        }
         default:
             break;
     }

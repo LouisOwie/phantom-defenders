@@ -68,10 +68,10 @@ void MyApplication::processInput() {
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cam->handleInput('d', getFrameDeltaTime());
 
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-        cam->handleInput('f', getFrameDeltaTime());
-    if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-        cam->handleInput('k', getFrameDeltaTime());
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+        cam->handleInput('e', getFrameDeltaTime());
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        cam->handleInput('q', getFrameDeltaTime());
 
     bool currPressed = false;
 
