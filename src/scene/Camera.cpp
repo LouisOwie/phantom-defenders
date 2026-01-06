@@ -1,5 +1,6 @@
 ﻿#include "Camera.hpp"
 #include <glm/gtc/matrix_transform.hpp>
+#include <cmath>
 
 Camera::Camera(glm::vec3 position, glm::vec3 target, glm::vec3 up, float fov, float nearClip, float farClip)
     : position(position), target(target), up(up), fov(fov), nearClip(nearClip), farClip(farClip) {}
