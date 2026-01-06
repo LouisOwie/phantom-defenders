@@ -16,6 +16,8 @@ public:
 
     void setAspect(float aspectRatio);
 private:
+    void adjustPitch(float pitchDelta, float deltaTime);
+    
     float aspect;
     // camera parameters
     glm::vec3 position;
