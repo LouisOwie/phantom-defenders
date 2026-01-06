@@ -36,38 +36,12 @@ void Camera::handleInput(char key, float deltaTime) {
             position.z = glm::min(position.z + speed, 37.0f);
             target.z = glm::min(target.z + speed, 37.0f);
             break;
-        case 'e': {
-            glm::vec3 direction = position - target;
-            float radius = glm::length(direction);
-
-            float currentPitch = asin(direction.y / radius);
-            float pitchSpeed = 1.5f * deltaTime;
-
-            float newPitch = glm::min(currentPitch + pitchSpeed, glm::radians(89.0f));
-
-            float horizontalDist = radius * cos(newPitch);
-            glm::vec3 horizontalDir = glm::normalize(glm::vec3(direction.x, 0.0f, direction.z));
-
-            position = target + horizontalDir * horizontalDist;
-            position.y = target.y + radius * sin(newPitch);
+        case 'e':
+            adjustPitch(1.0f, glm::radians(10.0f), glm::radians(89.0f), deltaTime);
             break;
-        }
-        case 'q': {
-            glm::vec3 direction = position - target;
-            float radius = glm::length(direction);
-
-            float currentPitch = asin(direction.y / radius);
-            float pitchSpeed = 1.5f * deltaTime;
-
-            float newPitch = glm::max(currentPitch - pitchSpeed, glm::radians(10.0f));
-
-            float horizontalDist = radius * cos(newPitch);
-            glm::vec3 horizontalDir = glm::normalize(glm::vec3(direction.x, 0.0f, direction.z));
-
-            position = target + horizontalDir * horizontalDist;
-            position.y = target.y + radius * sin(newPitch);
+        case 'q':
+            adjustPitch(-1.0f, glm::radians(10.0f), glm::radians(89.0f), deltaTime);
             break;
-        }
         default:
             break;
     }
@@ -75,4 +49,33 @@ void Camera::handleInput(char key, float deltaTime) {
 
 void Camera::setAspect(float aspectRatio) {
     aspect = aspectRatio;
+}
+
+void Camera::adjustPitch(float pitchDelta, float minPitch, float maxPitch, float deltaTime) {
+    glm::vec3 direction = position - target;
+    float radius = glm::length(direction);
+
+    // Check if direction is valid (not zero)
+    if (radius == 0.0f) {
+        return;
+    }
+
+    float currentPitch = asin(direction.y / radius);
+    float pitchSpeed = 1.5f * deltaTime;
+
+    float newPitch = glm::clamp(currentPitch + pitchDelta * pitchSpeed, minPitch, maxPitch);
+
+    float horizontalDist = radius * cos(newPitch);
+    glm::vec3 horizontalDir = glm::vec3(direction.x, 0.0f, direction.z);
+    
+    // Check if horizontal direction is valid (not zero)
+    float horizontalLength = glm::length(horizontalDir);
+    if (horizontalLength == 0.0f) {
+        return;
+    }
+    
+    horizontalDir = horizontalDir / horizontalLength;
+
+    position = target + horizontalDir * horizontalDist;
+    position.y = target.y + radius * sin(newPitch);
 }
