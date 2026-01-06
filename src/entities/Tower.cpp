@@ -9,18 +9,19 @@ void Tower::update(float deltaTime) {
         shoot();
         timeSinceLastAttack = 0.0f;
     }
-    if (timeSinceLastAttack < 1.0 / attackSpeed) {
-        timeSinceLastAttack += deltaTime;
-    }
+    timeSinceLastAttack += deltaTime;
 
+    // Remove projectiles that have already hit or have invalid/dead targets
+    std::erase_if(projectiles,
+                  [](const auto& projectile) {
+                      const auto target = projectile->getTarget();
+                      return projectile->hasHitTarget() || target == nullptr || !target->isAlive();
+                  });
+
+    // Update remaining projectiles which now have guaranteed valid, alive targets
     for (const auto& projectile : projectiles) {
         projectile->update(deltaTime);
     }
-    std::erase_if(projectiles,
-                  [](const auto& projectile) {
-                      return projectile->hasHitTarget() || !projectile->getTarget()->isAlive();
-                  });
-
 }
 
 void Tower::draw(ShaderProgram &shaderProgram) {

@@ -5,7 +5,7 @@
 
 #include "../model/ModelManager.hpp"
 
-int World::gold =50;
+int World::gold = 50;
 
 World::World() : Entity(ModelManager::mapModel) {
     spawnGate = std::make_shared<SpawnGate>(glm::vec3(0.0f, -1.3f, -42.0f));
@@ -36,10 +36,10 @@ void World::update(float deltaTime) {
                         enemy = e;
                     }
                 }
-                platform->getTower()->setTarget(enemy);
+                tower->setTarget(enemy);
             }
             else {
-                platform->getTower()->setTarget(nullptr);
+                tower->setTarget(nullptr);
             }
         }
         platform->update(deltaTime);
@@ -79,7 +79,7 @@ void World::handleInput(std::string key) {
 std::vector<std::shared_ptr<Ghost>> World::getEnemiesInRange(glm::vec3 pos, float range) {
     std::vector<std::shared_ptr<Ghost>> enemiesInRange;
 
-    std::vector<std::shared_ptr<Ghost>> enemies = spawnGate->getEnemies();
+    const auto enemies = spawnGate->getEnemies();
     const auto towerPos2D = glm::vec2(pos.x, pos.z);
     for (const auto& enemy : enemies) {
         const auto enemyPos2D = glm::vec2(enemy->getPos().x, enemy->getPos().z);
