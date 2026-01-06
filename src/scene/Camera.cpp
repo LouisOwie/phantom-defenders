@@ -1,6 +1,5 @@
 ﻿#include "Camera.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include <cmath>
 
 Camera::Camera(glm::vec3 position, glm::vec3 target, glm::vec3 up, float fov, float nearClip, float farClip)
     : position(position), target(target), up(up), fov(fov), nearClip(nearClip), farClip(farClip) {}
@@ -30,18 +29,18 @@ void Camera::handleInput(char key, float deltaTime) {
             }
             break;
         case 'a':
-            position.z = glm::max(position.z - speed, -37.0f);
-            target.z = glm::max(target.z - speed, -37.0f);
+            position.z = glm::max(position.z - speed, -35.0f);
+            target.z = glm::max(target.z - speed, -35.0f);
             break;
         case 'd':
-            position.z = glm::min(position.z + speed, 37.0f);
-            target.z = glm::min(target.z + speed, 37.0f);
+            position.z = glm::min(position.z + speed, 36.0f);
+            target.z = glm::min(target.z + speed, 36.0f);
             break;
         case 'e':
-            adjustPitch(1.0f, glm::radians(10.0f), glm::radians(89.0f), deltaTime);
+            adjustPitch(1.0f, deltaTime);
             break;
         case 'q':
-            adjustPitch(-1.0f, glm::radians(10.0f), glm::radians(89.0f), deltaTime);
+            adjustPitch(-1.0f, deltaTime);
             break;
         default:
             break;
@@ -52,26 +51,26 @@ void Camera::setAspect(float aspectRatio) {
     aspect = aspectRatio;
 }
 
-void Camera::adjustPitch(float pitchDelta, float minPitch, float maxPitch, float deltaTime) {
-    glm::vec3 direction = position - target;
-    float radius = glm::length(direction);
+void Camera::adjustPitch(float pitchDelta, float deltaTime) {
+    const glm::vec3 direction = position - target;
+    const float radius = glm::length(direction);
 
     // Check if direction is valid (not zero)
-    const float epsilon = 1e-6f;
+    constexpr float epsilon = 1e-6f;
     if (radius < epsilon) {
         return;
     }
 
-    float currentPitch = asin(direction.y / radius);
-    float pitchSpeed = 1.5f * deltaTime;
+    const float currentPitch = asin(direction.y / radius);
+    const float pitchSpeed = 1.5f * deltaTime;
 
-    float newPitch = glm::clamp(currentPitch + pitchDelta * pitchSpeed, minPitch, maxPitch);
+    const float newPitch = glm::clamp(currentPitch + pitchDelta * pitchSpeed, glm::radians(10.0f), glm::radians(89.0f));
 
-    float horizontalDist = radius * cos(newPitch);
-    glm::vec3 horizontalDir = glm::vec3(direction.x, 0.0f, direction.z);
+    const float horizontalDist = radius * cos(newPitch);
+    auto horizontalDir = glm::vec3(direction.x, 0.0f, direction.z);
     
     // Check if horizontal direction is valid (not zero)
-    float horizontalLength = glm::length(horizontalDir);
+    const float horizontalLength = glm::length(horizontalDir);
     if (horizontalLength < epsilon) {
         return;
     }

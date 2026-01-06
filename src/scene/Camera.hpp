@@ -16,7 +16,7 @@ public:
 
     void setAspect(float aspectRatio);
 private:
-    void adjustPitch(float pitchDelta, float minPitch, float maxPitch, float deltaTime);
+    void adjustPitch(float pitchDelta, float deltaTime);
     
     float aspect;
     // camera parameters
