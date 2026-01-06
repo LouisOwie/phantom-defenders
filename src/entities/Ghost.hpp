@@ -5,7 +5,7 @@
 
 class Ghost: public Entity {
 public:
-    Ghost(int id, glm::vec3 pos, float speed = 5.0f, int health = 3);
+    Ghost(int id, glm::vec3 pos, float speed = 5.0f, int health = 32);
 
     void gotHit(int damage);
 

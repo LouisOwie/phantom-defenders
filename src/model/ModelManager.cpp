@@ -10,4 +10,5 @@ void ModelManager::loadModels() {
     towerModel2 = std::make_shared<Model>("../assets/tower2.obj");
     towerModel3 = std::make_shared<Model>("../assets/tower3.obj");
     towerModel4 = std::make_shared<Model>("../assets/tower4.obj");
+    projectileModel = std::make_shared<Model>("../assets/projectile.obj");
 }

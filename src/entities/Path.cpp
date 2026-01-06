@@ -12,7 +12,7 @@ void Path::calculatePathPoints(const std::vector<glm::vec3>& points) {
     }
     std::vector<glm::vec3> pathPoints;
     const float cornerRadius = 4.0f; // Radius of the rounding at the corners
-    const int cornerSegments = 60; // Number of points per corner
+    const int cornerSegments = 30; // Number of points per corner
 
     // Add the first point
     pathPoints.push_back(points[0]);
@@ -42,7 +42,6 @@ void Path::calculatePathPoints(const std::vector<glm::vec3>& points) {
 
             for (int j = 1; j <= cornerSegments; ++j) {
                 float t = static_cast<float>(j) / (cornerSegments + 1);
-                // Quadratic Bézier curve: B(t) = (1-t)²*P0 + 2(1-t)t*P1 + t²*P2
                 glm::vec3 rounded =
                     (1.0f - t) * (1.0f - t) * cornerStart +
                     2.0f * (1.0f - t) * t * next +

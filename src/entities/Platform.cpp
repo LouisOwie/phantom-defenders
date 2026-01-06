@@ -6,6 +6,9 @@ Platform::Platform(glm::vec3 pos): Entity(ModelManager::platformModel, pos) {
 }
 
 void Platform::update(float deltaTime) {
+    if (tower) {
+        tower->update(deltaTime);
+    }
 }
 
 void Platform::draw(ShaderProgram &shaderProgram) {
