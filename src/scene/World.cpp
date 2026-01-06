@@ -5,7 +5,7 @@
 
 #include "../model/ModelManager.hpp"
 
-int World::gold = 50;
+int World::gold =20000;
 
 World::World() : Entity(ModelManager::mapModel) {
     spawnGate = std::make_shared<SpawnGate>(glm::vec3(0.0f, -1.3f, -42.0f));
@@ -25,6 +25,25 @@ void World::draw(ShaderProgram &shaderProgram) {
 
 void World::update(float deltaTime) {
     spawnGate->update(deltaTime);
+    for (const auto& platform: platforms) {
+        const auto tower = platform->getTower();
+        if (tower != nullptr) {
+            const auto enemiesInRange = getEnemiesInRange(platform->getPos(), platform->getTower()->getRange());
+            if (!enemiesInRange.empty()) {
+                auto enemy = enemiesInRange[0];
+                for (auto const& e : enemiesInRange) {
+                    if (e->getId() < enemy->getId()) {
+                        enemy = e;
+                    }
+                }
+                platform->getTower()->setTarget(enemy);
+            }
+            else {
+                platform->getTower()->setTarget(nullptr);
+            }
+        }
+        platform->update(deltaTime);
+    }
 }
 
 void World::handleInput(std::string key) {
@@ -53,5 +72,21 @@ void World::handleInput(std::string key) {
     }
     if (key == "enter" && selectedPlatform) {
         selectedPlatform->upgrade();
+        selectedPlatform = nullptr;
     }
+}
+
+std::vector<std::shared_ptr<Ghost>> World::getEnemiesInRange(glm::vec3 pos, float range) {
+    std::vector<std::shared_ptr<Ghost>> enemiesInRange;
+
+    std::vector<std::shared_ptr<Ghost>> enemies = spawnGate->getEnemies();
+    const auto towerPos2D = glm::vec2(pos.x, pos.z);
+    for (const auto& enemy : enemies) {
+        const auto enemyPos2D = glm::vec2(enemy->getPos().x, enemy->getPos().z);
+        const float distance = glm::length(towerPos2D - enemyPos2D);
+        if (distance <= range) {
+            enemiesInRange.push_back(enemy);
+        }
+    }
+    return enemiesInRange;
 }

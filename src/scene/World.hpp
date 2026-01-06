@@ -19,5 +19,7 @@ private:
     std::shared_ptr<SpawnGate> spawnGate;
     std::vector<std::shared_ptr<Platform>> platforms;
     std::shared_ptr<Platform> selectedPlatform;
+
+    std::vector<std::shared_ptr<Ghost>> getEnemiesInRange(glm::vec3 pos, float range);
 };
 #endif //PHANTOM_DEFENDERS_WORLD_HPP

@@ -15,6 +15,7 @@ public:
     static inline std::shared_ptr<Model> towerModel2;
     static inline std::shared_ptr<Model> towerModel3;
     static inline std::shared_ptr<Model> towerModel4;
+    static inline std::shared_ptr<Model> projectileModel;
 
     static void loadModels();
 };

@@ -9,6 +9,8 @@ public:
     SpawnGate(glm::vec3 pos);
     void update(float deltaTime) override;
     void draw(ShaderProgram& shaderProgram);
+
+    std::vector<std::shared_ptr<Ghost>> getEnemies() { return enemies; }
 private:
     std::vector<std::shared_ptr<Ghost>> enemies;
     glm::vec3 spawnLocation = glm::vec3(0.0f, 3.3f, -50.0f);

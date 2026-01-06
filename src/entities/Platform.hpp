@@ -13,6 +13,8 @@ public:
     void select();
     void deselect();
     void upgrade();
+
+    std::shared_ptr<Tower> getTower() { return tower; }
 private:
     std::shared_ptr<Tower> tower = nullptr;
     bool selected = false;
