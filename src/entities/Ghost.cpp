@@ -1,5 +1,6 @@
 ﻿#include "Ghost.hpp"
 #include "../model/ModelManager.hpp"
+#include "../scene/World.hpp"
 
 Ghost::Ghost(int id, glm::vec3 pos, float speed, int health): Entity(ModelManager::ghostModel, pos), id(id), speed(speed), health(health),
     path(Path({
@@ -16,6 +17,7 @@ void Ghost::gotHit(int damage) {
     health -= damage;
     if (health <= 0) {
         alive = false;
+        World::gold += 5;
     }
 }
 

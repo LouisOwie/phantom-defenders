@@ -17,7 +17,7 @@ void SpawnGate::update(float deltaTime) {
     }
 
     std::erase_if(enemies,
-                  [](const std::shared_ptr<Ghost>& enemy) {
+                  [](const auto& enemy) {
                       return !enemy->isAlive();
                   });
 }

@@ -21,7 +21,7 @@ private:
     float range;
 
     std::shared_ptr<Ghost> target;
-
+    float timeSinceLastAttack = 0.0f;
     std::vector<std::shared_ptr<Projectile>> projectiles;
 
     void shoot();

@@ -5,7 +5,7 @@
 
 #include "../model/ModelManager.hpp"
 
-int World::gold =20000;
+int World::gold =50;
 
 World::World() : Entity(ModelManager::mapModel) {
     spawnGate = std::make_shared<SpawnGate>(glm::vec3(0.0f, -1.3f, -42.0f));

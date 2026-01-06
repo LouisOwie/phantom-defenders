@@ -5,12 +5,22 @@ Tower::Tower(glm::vec3 pos): Entity(ModelManager::towerModel1, pos), attackSpeed
 }
 
 void Tower::update(float deltaTime) {
-    if (target != nullptr) {
+    if (target != nullptr && timeSinceLastAttack >= 1.0 / attackSpeed) {
         shoot();
+        timeSinceLastAttack = 0.0f;
     }
+    if (timeSinceLastAttack < 1.0 / attackSpeed) {
+        timeSinceLastAttack += deltaTime;
+    }
+
     for (const auto& projectile : projectiles) {
         projectile->update(deltaTime);
     }
+    std::erase_if(projectiles,
+                  [](const auto& projectile) {
+                      return projectile->hasHitTarget() || !projectile->getTarget()->isAlive();
+                  });
+
 }
 
 void Tower::draw(ShaderProgram &shaderProgram) {
@@ -21,7 +31,7 @@ void Tower::draw(ShaderProgram &shaderProgram) {
 }
 
 void Tower::shoot() {
-    const auto projectile = std::make_shared<Projectile>(target, pos + glm::vec3(0.0f, 5.0f, 0.0f));
+    const auto projectile = std::make_shared<Projectile>(damage, target, pos + glm::vec3(0.0f, 4.0f, 0.0f));
     projectiles.push_back(projectile);
 }
 
