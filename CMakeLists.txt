@@ -53,6 +53,7 @@ add_subdirectory(lib/glew EXCLUDE_FROM_ALL)
 add_subdirectory(lib/glm EXCLUDE_FROM_ALL)
 add_subdirectory(lib/assimp EXCLUDE_FROM_ALL)
 add_subdirectory(lib/stb EXCLUDE_FROM_ALL)
+add_subdirectory(lib/imgui EXCLUDE_FROM_ALL)
 
 target_link_libraries(phantom-defenders
   PRIVATE glfw
@@ -60,6 +61,7 @@ target_link_libraries(phantom-defenders
   PRIVATE glm
   PRIVATE assimp
   PRIVATE stb
+  PRIVATE imgui
 )
 
 configure_file(
