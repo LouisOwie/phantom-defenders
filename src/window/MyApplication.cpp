@@ -5,6 +5,8 @@
 #include "asset.hpp"
 #include "../utils/glError.hpp"
 #include "../model/ModelManager.hpp"
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
 
 MyApplication::MyApplication():
     cam(std::make_shared<Camera>(glm::vec3(-25.0, 50.0, 0.0),
@@ -34,6 +36,12 @@ void MyApplication::loop() {
     glClearColor(0.3, 0.2, 0.2, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    ImGui::ShowDemoWindow();
+
+
     shaderProgram.use();
 
     // set matrix : projection + view
@@ -49,6 +57,9 @@ void MyApplication::loop() {
     world->draw(shaderProgram);
 
     shaderProgram.unuse();
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void MyApplication::processInput() {

@@ -13,6 +13,10 @@
 #include <iostream>
 #include <stdexcept>
 
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
 using namespace std;
 
 Application* currentApplication = NULL;
@@ -71,8 +75,15 @@ Application::Application()
   glEnable(GL_DEPTH_TEST);  // enable depth-testing
   glDepthFunc(GL_LESS);  // depth-testing interprets a smaller value as "closer"
 
-  // vsync
-  // glfwSwapInterval(false);
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  ImGuiIO& io = ImGui::GetIO(); (void)io;
+  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+  io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+  // Setup Platform/Renderer backends
+  ImGui_ImplGlfw_InitForOpenGL(window, true);
+  ImGui_ImplOpenGL3_Init();
 }
 
 GLFWwindow* Application::getWindow() const {
