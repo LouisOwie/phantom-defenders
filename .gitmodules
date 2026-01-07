@@ -13,3 +13,6 @@
 [submodule "lib/stb"]
 	path = lib/stb
 	url = https://github.com/LouisOwie/stb
+[submodule "lib/imgui"]
+	path = lib/imgui
+	url = https://github.com/LouisOwie/imgui
