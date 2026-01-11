@@ -48,8 +48,15 @@ Application::Application()
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   // create the window
-  const float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor()); // Valid on GLFW 3.3+ only
-  window = glfwCreateWindow(static_cast<int>(1280 * main_scale), static_cast<int>(800 * main_scale), title.c_str(), NULL, NULL);
+  const float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor());
+
+  window = glfwCreateWindow(
+    static_cast<int>(static_cast<float>(width) * main_scale),
+    static_cast<int>(static_cast<float>(height) * main_scale),
+    title.c_str(),
+    nullptr,
+    nullptr);
+
   if (!window) {
     glfwTerminate();
     throw std::runtime_error("Couldn't create a window");

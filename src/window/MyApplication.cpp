@@ -7,6 +7,7 @@
 #include "../model/ModelManager.hpp"
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
+#include "UiManager.hpp"
 
 MyApplication::MyApplication():
     cam(std::make_shared<Camera>(glm::vec3(-25.0, 50.0, 0.0),
@@ -21,6 +22,7 @@ MyApplication::MyApplication():
     glCheckError(__FILE__, __LINE__);
     // preload all models
     ModelManager::loadModels();
+    UiManager::setupUI();
     // create scene
     world = std::make_shared<World>();
 }
@@ -39,7 +41,7 @@ void MyApplication::loop() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    ImGui::ShowDemoWindow();
+    UiManager::showGoldDisplay();
 
     // SCENE
     shaderProgram.use();

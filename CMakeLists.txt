@@ -39,6 +39,8 @@ add_executable(phantom-defenders
         src/entities/Tower.hpp
         src/entities/Projectile.cpp
         src/entities/Projectile.hpp
+        src/window/UiManager.cpp
+        src/window/UiManager.hpp
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/src/assets)
