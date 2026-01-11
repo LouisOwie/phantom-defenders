@@ -120,5 +120,10 @@ void MyApplication::processInput() {
             world->handleInput("enter");
         currPressed = true;
     }
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        if (!keyPressed)
+            World::gold += 50; // cheat code for testing
+        currPressed = true;
+    }
     keyPressed = currPressed;
 }
