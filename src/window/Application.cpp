@@ -132,6 +132,11 @@ void Application::run() {
       float t = glfwGetTime();
       deltaTime = t - time;
       time = t;
+      // Cap deltaTime to 60 FPS
+      constexpr float maxDeltaTime = 1.0f / 60.0f;
+      if (deltaTime > maxDeltaTime) {
+        deltaTime = maxDeltaTime;
+      }
 
       // get frame buffer dimensions
       int fbw, fbh;
