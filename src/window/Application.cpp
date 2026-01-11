@@ -139,7 +139,7 @@ void Application::run() {
       float t = glfwGetTime();
       deltaTime = t - time;
       time = t;
-      // Cap deltaTime to 60 FPS
+      // Prevent large time jumps by clamping deltaTime (equivalent to a minimum of 60 FPS)
       constexpr float maxDeltaTime = 1.0f / 60.0f;
       if (deltaTime > maxDeltaTime) {
         deltaTime = maxDeltaTime;

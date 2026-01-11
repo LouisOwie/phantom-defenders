@@ -1,6 +1,7 @@
 ﻿#include "UiManager.hpp"
 #include "../scene/World.hpp"
 #include <stb_image.h>
+#include <iostream>
 
 void UiManager::setupUI() {
     goldIcon = loadIconTexture("../assets/gold_icon.png");
@@ -26,7 +27,7 @@ void UiManager::showGoldDisplay() {
     const ImVec2 cursor = ImGui::GetCursorScreenPos();
     constexpr ImVec2 iconSize(48.0f, 48.0f);
 
-    // gold ammount
+    // gold amount
     char buffer[64];
     snprintf(buffer, sizeof(buffer), "%d", World::gold);
     const ImVec2 textSize = ImGui::CalcTextSize(buffer, nullptr, false, 0);
@@ -44,9 +45,14 @@ void UiManager::showGoldDisplay() {
     const ImVec2 textPos(iconPos.x - spacing - textSize.x, cursor.y + (iconSize.y - textSize.y)/2.0f);
 
     // Icon
-    constexpr float outlineThickness = 1.5f;
     constexpr ImU32 outlineColor = IM_COL32(0, 0, 0, 255);
-    ImageOutlinedAtPosition(goldIcon, iconPos, iconSize, outlineColor, outlineThickness);
+    if (goldIcon) {
+        constexpr float outlineThickness = 1.5f;
+        ImageOutlinedAtPosition(goldIcon, iconPos, iconSize, outlineColor, outlineThickness);
+    }
+    else {
+        TextOutlinedAtPosition("N/A", iconPos, IM_COL32(255, 0, 0, 255), outlineColor);
+    }
 
     // Text
     TextOutlinedAtPosition(buffer, textPos, IM_COL32(255, 215, 0, 255), outlineColor);
@@ -56,7 +62,7 @@ void UiManager::showGoldDisplay() {
     ImGui::End();
 }
 
-void UiManager::ImageOutlinedAtPosition(ImTextureID texture, const ImVec2& pos, const ImVec2& size, ImU32 outlineColor, float thickness)
+void UiManager::ImageOutlinedAtPosition(const unsigned int texture, const ImVec2& pos, const ImVec2& size, ImU32 outlineColor, float thickness)
 {
     ImDrawList* draw = ImGui::GetWindowDrawList();
 
@@ -89,8 +95,10 @@ void UiManager::TextOutlinedAtPosition(const char* text, const ImVec2& pos, ImU3
 unsigned int UiManager::loadIconTexture(const char* path) {
     int w, h, channels;
     unsigned char* data = stbi_load(path, &w, &h, &channels, 4);
-    if (!data)
+    if (!data) {
+        std::cerr << "Failed to setup UI | Could not load icon texture: " << path << std::endl;
         return 0;
+    }
 
     GLuint tex;
     glGenTextures(1, &tex);
