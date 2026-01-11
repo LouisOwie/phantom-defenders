@@ -48,8 +48,15 @@ Application::Application()
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   // create the window
-  const float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor()); // Valid on GLFW 3.3+ only
-  window = glfwCreateWindow(static_cast<int>(1280 * main_scale), static_cast<int>(800 * main_scale), title.c_str(), NULL, NULL);
+  const float main_scale = ImGui_ImplGlfw_GetContentScaleForMonitor(glfwGetPrimaryMonitor());
+
+  window = glfwCreateWindow(
+    static_cast<int>(static_cast<float>(width) * main_scale),
+    static_cast<int>(static_cast<float>(height) * main_scale),
+    title.c_str(),
+    nullptr,
+    nullptr);
+
   if (!window) {
     glfwTerminate();
     throw std::runtime_error("Couldn't create a window");
@@ -132,6 +139,11 @@ void Application::run() {
       float t = glfwGetTime();
       deltaTime = t - time;
       time = t;
+      // Prevent large time jumps by clamping deltaTime (equivalent to a minimum of 60 FPS)
+      constexpr float maxDeltaTime = 1.0f / 60.0f;
+      if (deltaTime > maxDeltaTime) {
+        deltaTime = maxDeltaTime;
+      }
 
       // get frame buffer dimensions
       int fbw, fbh;
