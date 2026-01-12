@@ -21,7 +21,8 @@ void UiManager::showGoldDisplay() {
                  ImGuiWindowFlags_NoMove |
                  ImGuiWindowFlags_NoCollapse |
                  ImGuiWindowFlags_NoScrollbar |
-                 ImGuiWindowFlags_NoBackground);
+                 ImGuiWindowFlags_NoBackground |
+                 ImGuiWindowFlags_NoInputs);
 
     ImGui::SetWindowFontScale(3.0f);
 
