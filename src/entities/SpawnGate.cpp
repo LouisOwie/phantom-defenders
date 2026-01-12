@@ -30,7 +30,7 @@ void SpawnGate::draw(ShaderProgram& shaderProgram) {
 }
 
 void SpawnGate::spawnEnemy() {
-    const auto ghost = std::make_shared<Ghost>(idCounter, spawnLocation);
+    const auto ghost = std::make_shared<Ghost>(idCounter, NORMAL_GHOST, spawnLocation, 5.0f);
     enemies.push_back(ghost);
     idCounter++;
 }

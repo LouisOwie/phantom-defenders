@@ -2,7 +2,7 @@
 #include "../model/ModelManager.hpp"
 #include "../scene/World.hpp"
 
-Ghost::Ghost(int id, glm::vec3 pos, float speed, int health): Entity(ModelManager::ghostModel, pos), id(id), speed(speed), health(health),
+Ghost::Ghost(int id, int type, glm::vec3 pos, float speed): Entity(type ? ModelManager::ghostModel : ModelManager::miniGhostModel, pos), id(id), speed(speed),
     path(Path({
             glm::vec3(0.0f, 3.3f, -45.0f),
             glm::vec3(0.0f, 3.3f, 8.8f),
@@ -11,6 +11,7 @@ Ghost::Ghost(int id, glm::vec3 pos, float speed, int health): Entity(ModelManage
             glm::vec3(0.0f, 3.3f, -8.8f),
             glm::vec3(0.0f, 3.3f, 50.0f),
         })) {
+    health = type ? 100 : 30;
 }
 
 void Ghost::gotHit(int damage) {
