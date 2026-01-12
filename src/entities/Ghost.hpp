@@ -23,7 +23,7 @@ public:
 private:
     int id;
     int type;
-    float speed = 5.0f;
+    float speed;
     int health;
     bool alive = true;
     Path path;
