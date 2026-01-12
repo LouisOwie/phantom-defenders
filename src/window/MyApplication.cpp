@@ -42,6 +42,9 @@ void MyApplication::loop() {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     UiManager::showGoldDisplay();
+    if (World::gameOver) {
+        UiManager::showGameOverScreen();
+    }
 
     // SCENE
     shaderProgram.use();
@@ -91,24 +94,16 @@ void MyApplication::processInput() {
     bool currPressed = false;
 
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("left");
-        currPressed = true;
+        world->handleInput("left");
     }
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("right");
-        currPressed = true;
+        world->handleInput("right");
     }
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("up");
-        currPressed = true;
+        world->handleInput("up");
     }
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("down");
-        currPressed = true;
+        world->handleInput("down");
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (!keyPressed)

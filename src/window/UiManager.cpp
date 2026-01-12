@@ -5,6 +5,7 @@
 
 void UiManager::setupUI() {
     goldIcon = loadIconTexture("../assets/gold_icon.png");
+    gameOverIcon = loadIconTexture("../assets/gameOver.png");
 }
 
 void UiManager::showGoldDisplay() {
@@ -60,6 +61,65 @@ void UiManager::showGoldDisplay() {
     ImGui::Dummy(ImVec2(window_size.x, window_size.y));
     ImGui::SetWindowFontScale(1.0f);
     ImGui::End();
+}
+
+void UiManager::showGameOverScreen() {
+    showDimmer(0.6f);
+
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+    ImGui::SetNextWindowPos(viewport->Pos);
+    ImGui::SetNextWindowSize(viewport->Size);
+
+    // remove padding
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+
+    if (!ImGui::Begin(
+            "GameOverScreen",
+            nullptr,
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove |
+            ImGuiWindowFlags_NoCollapse |
+            ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoBackground |
+            ImGuiWindowFlags_NoBringToFrontOnFocus |
+            ImGuiWindowFlags_NoNav |
+            ImGuiWindowFlags_NoInputs))
+    {
+        ImGui::End();
+        ImGui::PopStyleVar(3);
+        return;
+    }
+    ImDrawList* draw = ImGui::GetForegroundDrawList();
+
+    // use entire viewport
+    const ImVec2 pos = viewport->Pos;
+    const ImVec2 size = viewport->Size;
+
+    draw->AddImage(
+        gameOverIcon,
+        pos,
+        ImVec2(pos.x + size.x, pos.y + size.y),
+        ImVec2(0.0f, 0.0f),
+        ImVec2(1.0f, 1.0f)
+    );
+
+    ImGui::End();
+    ImGui::PopStyleVar(3);
+}
+
+void UiManager::showDimmer(float alpha) {
+    const ImGuiIO& io = ImGui::GetIO();
+    ImDrawList* draw = ImGui::GetForegroundDrawList();
+
+    draw->AddRectFilled(
+        ImVec2(0, 0),
+        io.DisplaySize,
+        IM_COL32(0, 0, 0, static_cast<int>(255 * alpha))
+    );
 }
 
 void UiManager::ImageOutlinedAtPosition(const unsigned int texture, const ImVec2& pos, const ImVec2& size, ImU32 outlineColor, float thickness)

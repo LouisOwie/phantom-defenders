@@ -32,6 +32,7 @@ void Ghost::update(float deltaTime) {
     }
     if (path.isEmpty()) {
         alive = false;
+        World::gameOver = true;
     }
 }
 
