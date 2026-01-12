@@ -7,6 +7,7 @@ class ModelManager {
 public:
     // models
     static inline std::shared_ptr<Model> ghostModel;
+    static inline std::shared_ptr<Model> miniGhostModel;
     static inline std::shared_ptr<Model> mapModel;
     static inline std::shared_ptr<Model> platformModel;
     static inline std::shared_ptr<Model> selectedPlatformModel;
