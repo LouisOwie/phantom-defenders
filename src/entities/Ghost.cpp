@@ -12,7 +12,7 @@ Ghost::Ghost(const int id, const GhostType type, const glm::vec3 pos, const floa
             glm::vec3(0.0f, pos.y, -8.8f),
             glm::vec3(0.0f, pos.y, 50.0f),
         })) {
-    health = type ? 100 : 30;
+    health = type == NORMAL_GHOST ? 100 : 30;
 }
 
 void Ghost::gotHit(const int damage) {
