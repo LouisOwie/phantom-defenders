@@ -2,27 +2,28 @@
 #include "../model/ModelManager.hpp"
 #include "../scene/World.hpp"
 
-Ghost::Ghost(int id, int type, glm::vec3 pos, float speed): Entity(type ? ModelManager::ghostModel : ModelManager::miniGhostModel, pos), id(id), speed(speed),
+Ghost::Ghost(const int id, const GhostType type, const glm::vec3 pos, const float speed): Entity(type == NORMAL_GHOST ? ModelManager::ghostModel : ModelManager::miniGhostModel, pos),
+    id(id), type(type), speed(speed),
     path(Path({
-            glm::vec3(0.0f, 3.3f, -45.0f),
-            glm::vec3(0.0f, 3.3f, 8.8f),
-            glm::vec3(-17.3f, 3.3f, 8.8f),
-            glm::vec3(-17.3f, 3.3f, -8.8f),
-            glm::vec3(0.0f, 3.3f, -8.8f),
-            glm::vec3(0.0f, 3.3f, 50.0f),
+            glm::vec3(0.0f, pos.y, -45.0f),
+            glm::vec3(0.0f, pos.y, 8.8f),
+            glm::vec3(-17.3f, pos.y, 8.8f),
+            glm::vec3(-17.3f, pos.y, -8.8f),
+            glm::vec3(0.0f, pos.y, -8.8f),
+            glm::vec3(0.0f, pos.y, 50.0f),
         })) {
     health = type ? 100 : 30;
 }
 
-void Ghost::gotHit(int damage) {
+void Ghost::gotHit(const int damage) {
     health -= damage;
     if (health <= 0) {
         alive = false;
-        World::gold += 5;
+        World::gold += type == NORMAL_GHOST ? 15 : 5;
     }
 }
 
-void Ghost::update(float deltaTime) {
+void Ghost::update(const float deltaTime) {
     const glm::vec3 toPathPoint = path.getPoint() - pos;
     const glm::vec3 direction = glm::normalize(toPathPoint);
     const float distance = glm::length(toPathPoint);

@@ -2,7 +2,7 @@
 #include "../model/ModelManager.hpp"
 #include "../scene/World.hpp"
 
-Tower::Tower(glm::vec3 pos): Entity(ModelManager::towerModel1, pos), attackSpeed(1.0f), damage(10), range(15.0f) {
+Tower::Tower(glm::vec3 pos): Entity(ModelManager::towerModel1, pos), attackSpeed(1.0f), damage(8), range(15.0f) {
 }
 
 void Tower::update(float deltaTime) {
@@ -53,7 +53,7 @@ void Tower::upgrade(int level) {
             break;
         case 4:
             model = ModelManager::towerModel4;
-            damage = 20;
+            damage = 25;
             attackSpeed = 3.0f;
             break;
         default:
