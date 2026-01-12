@@ -39,6 +39,8 @@ add_executable(phantom-defenders
         src/entities/Tower.hpp
         src/entities/Projectile.cpp
         src/entities/Projectile.hpp
+        src/window/UiManager.cpp
+        src/window/UiManager.hpp
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/src/assets)
@@ -53,6 +55,7 @@ add_subdirectory(lib/glew EXCLUDE_FROM_ALL)
 add_subdirectory(lib/glm EXCLUDE_FROM_ALL)
 add_subdirectory(lib/assimp EXCLUDE_FROM_ALL)
 add_subdirectory(lib/stb EXCLUDE_FROM_ALL)
+add_subdirectory(lib/imgui EXCLUDE_FROM_ALL)
 
 target_link_libraries(phantom-defenders
   PRIVATE glfw
@@ -60,6 +63,7 @@ target_link_libraries(phantom-defenders
   PRIVATE glm
   PRIVATE assimp
   PRIVATE stb
+  PRIVATE imgui
 )
 
 configure_file(

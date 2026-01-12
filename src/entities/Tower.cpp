@@ -1,5 +1,6 @@
 ﻿#include "Tower.hpp"
 #include "../model/ModelManager.hpp"
+#include "../scene/World.hpp"
 
 Tower::Tower(glm::vec3 pos): Entity(ModelManager::towerModel1, pos), attackSpeed(1.0f), damage(10), range(15.0f) {
 }
@@ -32,6 +33,8 @@ void Tower::draw(ShaderProgram &shaderProgram) {
 }
 
 void Tower::shoot() {
+    if (World::gameOver) return;
+
     const auto projectile = std::make_shared<Projectile>(damage, target, pos + glm::vec3(0.0f, 4.0f, 0.0f));
     projectiles.push_back(projectile);
 }

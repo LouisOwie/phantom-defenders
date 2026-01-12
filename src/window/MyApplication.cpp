@@ -5,6 +5,9 @@
 #include "asset.hpp"
 #include "../utils/glError.hpp"
 #include "../model/ModelManager.hpp"
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+#include "UiManager.hpp"
 
 MyApplication::MyApplication():
     cam(std::make_shared<Camera>(glm::vec3(-25.0, 50.0, 0.0),
@@ -17,23 +20,33 @@ MyApplication::MyApplication():
     shaderProgram({vertexShader, fragmentShader}) {
 
     glCheckError(__FILE__, __LINE__);
-
+    // preload all models
     ModelManager::loadModels();
-
-    // map
+    UiManager::setupUI();
+    // create scene
     world = std::make_shared<World>();
 }
 
 void MyApplication::loop() {
-
+    // update
     processInput();
     world->update(getFrameDeltaTime());
 
-    // clear
+    // clear screen
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.3, 0.2, 0.2, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // UI
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+    UiManager::showGoldDisplay();
+    if (World::gameOver) {
+        UiManager::showGameOverScreen();
+    }
+
+    // SCENE
     shaderProgram.use();
 
     // set matrix : projection + view
@@ -46,9 +59,14 @@ void MyApplication::loop() {
     shaderProgram.setUniform("view", view);
     shaderProgram.setUniform("lightPos", sun->getPosition());
 
+    // draw scene
     world->draw(shaderProgram);
 
     shaderProgram.unuse();
+
+    // UI rendering
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void MyApplication::processInput() {
@@ -76,24 +94,16 @@ void MyApplication::processInput() {
     bool currPressed = false;
 
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("left");
-        currPressed = true;
+        world->handleInput("left");
     }
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("right");
-        currPressed = true;
+        world->handleInput("right");
     }
     if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("up");
-        currPressed = true;
+        world->handleInput("up");
     }
     if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-        if (!keyPressed)
-            world->handleInput("down");
-        currPressed = true;
+        world->handleInput("down");
     }
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
         if (!keyPressed)
@@ -103,6 +113,11 @@ void MyApplication::processInput() {
     if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) {
         if (!keyPressed)
             world->handleInput("enter");
+        currPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        if (!keyPressed)
+            World::gold += 50; // cheat code for testing
         currPressed = true;
     }
     keyPressed = currPressed;
