@@ -53,7 +53,7 @@ void SpawnGate::draw(ShaderProgram& shaderProgram) {
 }
 
 void SpawnGate::spawnEnemy() {
-    const int type = (static_cast<float>(rand()) / RAND_MAX) < spawnProbability ? NORMAL_GHOST : MINI_GHOST;
+    const GhostType type = (static_cast<float>(rand()) / RAND_MAX) < spawnProbability ? NORMAL_GHOST : MINI_GHOST;
     const auto ghost = std::make_shared<Ghost>(idCounter, type, spawnLocation[type], 5.0f);
     enemies.push_back(ghost);
     idCounter++;

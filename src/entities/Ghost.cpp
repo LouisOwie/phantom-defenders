@@ -2,7 +2,7 @@
 #include "../model/ModelManager.hpp"
 #include "../scene/World.hpp"
 
-Ghost::Ghost(int id, int type, glm::vec3 pos, float speed): Entity(type ? ModelManager::ghostModel : ModelManager::miniGhostModel, pos),
+Ghost::Ghost(const int id, const GhostType type, const glm::vec3 pos, const float speed): Entity(type == NORMAL_GHOST ? ModelManager::ghostModel : ModelManager::miniGhostModel, pos),
     id(id), type(type), speed(speed),
     path(Path({
             glm::vec3(0.0f, pos.y, -45.0f),
@@ -15,15 +15,15 @@ Ghost::Ghost(int id, int type, glm::vec3 pos, float speed): Entity(type ? ModelM
     health = type ? 100 : 30;
 }
 
-void Ghost::gotHit(int damage) {
+void Ghost::gotHit(const int damage) {
     health -= damage;
     if (health <= 0) {
         alive = false;
-        World::gold += type ? 15 : 5;
+        World::gold += type == NORMAL_GHOST ? 15 : 5;
     }
 }
 
-void Ghost::update(float deltaTime) {
+void Ghost::update(const float deltaTime) {
     const glm::vec3 toPathPoint = path.getPoint() - pos;
     const glm::vec3 direction = glm::normalize(toPathPoint);
     const float distance = glm::length(toPathPoint);

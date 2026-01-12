@@ -9,17 +9,17 @@ enum GhostType {
     NORMAL_GHOST = 1
 };
 
-class Ghost: public Entity {
+class Ghost final : public Entity {
 public:
-    Ghost(int id, int type, glm::vec3 pos, float speed);
+    Ghost(int id, GhostType type, glm::vec3 pos, float speed);
 
     void gotHit(int damage);
 
     void update(float deltaTime) override;
 
     // getter/setter
-    int getId() { return id; }
-    bool isAlive() { return alive; }
+    int getId() const { return id; }
+    bool isAlive() const { return alive; }
 private:
     int id;
     int type;
