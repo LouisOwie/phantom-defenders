@@ -42,6 +42,9 @@ void MyApplication::loop() {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
     UiManager::showGoldDisplay();
+    if (World::gameOver) {
+        UiManager::showGameOverScreen();
+    }
 
     // SCENE
     shaderProgram.use();

@@ -15,7 +15,9 @@ public:
     void handleInput(std::string key);
 
     static int gold;
+    static bool gameOver;
 private:
+    std::shared_ptr<Model> exitGate;
     std::shared_ptr<SpawnGate> spawnGate;
     std::vector<std::shared_ptr<Platform>> platforms;
     std::shared_ptr<Platform> selectedPlatform;
