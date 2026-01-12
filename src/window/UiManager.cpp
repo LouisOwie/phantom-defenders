@@ -86,8 +86,7 @@ void UiManager::showGameOverScreen() {
             ImGuiWindowFlags_NoScrollbar |
             ImGuiWindowFlags_NoBackground |
             ImGuiWindowFlags_NoBringToFrontOnFocus |
-            ImGuiWindowFlags_NoNav |
-            ImGuiWindowFlags_NoInputs))
+            ImGuiWindowFlags_NoNav))
     {
         ImGui::End();
         ImGui::PopStyleVar(3);
