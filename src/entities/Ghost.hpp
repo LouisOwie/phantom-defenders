@@ -22,6 +22,7 @@ public:
     bool isAlive() { return alive; }
 private:
     int id;
+    int type;
     float speed = 5.0f;
     int health;
     bool alive = true;

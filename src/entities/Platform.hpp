@@ -19,6 +19,6 @@ private:
     std::shared_ptr<Tower> tower = nullptr;
     bool selected = false;
     int level = 0;
-    std::vector<int> priceTable = {50, 100, 200, 300};
+    std::vector<int> priceTable = {50, 100, 300, 700};
 };
 #endif //PHANTOM_DEFENDERS_PLATFORM_HPP
