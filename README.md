@@ -60,3 +60,10 @@ cd Debug
 | 2           | 100  | 12     | 1.5         |
 | 3           | 300  | 15     | 2.5         |
 | 4           | 700   | 25     | 3.0         |
+
+## 📸 Screenshots
+Here are some screenshots from Phantom Defenders:
+
+![Gameplay Screenshot](docs/Screenshot_gameplay1.png)
+![Gameplay Screenshot2](docs/Screenshot_gameplay2.png)
+![GameOver Screenshot](docs/Screenshot_gameOver.png)
