@@ -18,6 +18,7 @@ Ghost::Ghost(const int id, const GhostType type, const glm::vec3 pos, const floa
 void Ghost::gotHit(const int damage) {
     health -= damage;
     if (health <= 0) {
+        // ghost is dead
         alive = false;
         World::gold += type == NORMAL_GHOST ? 15 : 5;
     }
@@ -27,8 +28,10 @@ void Ghost::update(const float deltaTime) {
     const glm::vec3 toPathPoint = path.getPoint() - pos;
     const glm::vec3 direction = glm::normalize(toPathPoint);
     const float distance = glm::length(toPathPoint);
+
     pos += direction * speed * deltaTime;
     yaw = atan2(direction.x, direction.z);
+
     if (distance < 0.1f) {
         path.deletePoint();
     }

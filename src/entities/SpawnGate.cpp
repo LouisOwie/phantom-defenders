@@ -14,7 +14,7 @@ void SpawnGate::update(float deltaTime) {
         spawnProbability = glm::min(0.0f + floor(static_cast<float>(stageCounter + 1) / 2.0f) * 0.1f, 1.0f);
         enemySpeed = glm::min(4.0f + static_cast<float>(stageCounter) * 0.1f, 6.0f);
 
-        // Debug output
+        // Debug output for balancing
         /*
         static float totalGold = 50.0f;
         std::cout << "SpawnGate: Stage = " << stageCounter << std::endl;
@@ -34,11 +34,11 @@ void SpawnGate::update(float deltaTime) {
         spawnEnemy();
         spawnTimer -= spawnInterval;
     }
-
+    // Update all enemies
     for (const auto& enemy: enemies) {
         enemy->update(deltaTime);
     }
-
+    // Remove dead enemies
     std::erase_if(enemies,
                   [](const auto& enemy) {
                       return !enemy->isAlive();

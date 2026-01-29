@@ -9,9 +9,11 @@ std::shared_ptr<Model> Entity::getModel() {
 }
 
 void Entity::draw(ShaderProgram &shaderProgram) {
+    // compute model matrix
     auto transform = glm::mat4(1.0f);
     transform = glm::translate(transform, pos);
     transform = glm::rotate(transform, yaw, glm::vec3(0.0f, 1.0f, 0.0f));
     modelMatrix = transform;
+
     model->draw(shaderProgram, modelMatrix);
 }

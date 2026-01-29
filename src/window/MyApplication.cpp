@@ -91,6 +91,7 @@ void MyApplication::processInput() {
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         cam->handleInput('q', getFrameDeltaTime());
 
+    // interactions
     bool currPressed = false;
 
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {

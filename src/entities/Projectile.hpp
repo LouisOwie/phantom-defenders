@@ -5,7 +5,7 @@
 
 class Projectile : public Entity {
 public:
-    Projectile(int damage, std::shared_ptr<Ghost> target, glm::vec3 pos);
+    Projectile(int damage, const std::shared_ptr<Ghost> &target, glm::vec3 pos);
 
     void update(float deltaTime) override;
 

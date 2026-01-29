@@ -24,7 +24,7 @@ void World::draw(ShaderProgram &shaderProgram) {
     }
 }
 
-void World::update(float deltaTime) {
+void World::update(const float deltaTime) {
     spawnGate->update(deltaTime);
     for (const auto& platform: platforms) {
         const auto tower = platform->getTower();
@@ -84,6 +84,7 @@ std::vector<std::shared_ptr<Ghost>> World::getEnemiesInRange(glm::vec3 pos, floa
 
     const auto enemies = spawnGate->getEnemies();
     const auto towerPos2D = glm::vec2(pos.x, pos.z);
+
     for (const auto& enemy : enemies) {
         const auto enemyPos2D = glm::vec2(enemy->getPos().x, enemy->getPos().z);
         const float distance = glm::length(towerPos2D - enemyPos2D);

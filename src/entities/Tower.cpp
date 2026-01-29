@@ -2,10 +2,10 @@
 #include "../model/ModelManager.hpp"
 #include "../scene/World.hpp"
 
-Tower::Tower(glm::vec3 pos): Entity(ModelManager::towerModel1, pos), attackSpeed(1.0f), damage(8), range(15.0f) {
+Tower::Tower(const glm::vec3 pos): Entity(ModelManager::towerModel1, pos), attackSpeed(1.0f), damage(8), range(15.0f) {
 }
 
-void Tower::update(float deltaTime) {
+void Tower::update(const float deltaTime) {
     if (target != nullptr && timeSinceLastAttack >= 1.0 / attackSpeed) {
         shoot();
         timeSinceLastAttack = 0.0f;
@@ -34,12 +34,12 @@ void Tower::draw(ShaderProgram &shaderProgram) {
 
 void Tower::shoot() {
     if (World::gameOver) return;
-
+    // Create a new projectile
     const auto projectile = std::make_shared<Projectile>(damage, target, pos + glm::vec3(0.0f, 4.0f, 0.0f));
     projectiles.push_back(projectile);
 }
 
-void Tower::upgrade(int level) {
+void Tower::upgrade(const int level) {
     switch (level) {
         case 2:
             model = ModelManager::towerModel2;
