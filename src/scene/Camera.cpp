@@ -12,7 +12,7 @@ glm::mat4 Camera::getProjectionMatrix() {
     return glm::perspective(glm::radians(fov), aspect, nearClip, farClip);
 }
 
-void Camera::handleInput(char key, float deltaTime) {
+void Camera::handleInput(const char key, const float deltaTime) {
     const float speed = 30.0f * deltaTime;
 
     switch (key) {
@@ -47,11 +47,11 @@ void Camera::handleInput(char key, float deltaTime) {
     }
 }
 
-void Camera::setAspect(float aspectRatio) {
+void Camera::setAspect(const float aspectRatio) {
     aspect = aspectRatio;
 }
 
-void Camera::adjustPitch(float pitchDelta, float deltaTime) {
+void Camera::adjustPitch(const float pitchDelta, const float deltaTime) {
     const glm::vec3 direction = position - target;
     const float radius = glm::length(direction);
 

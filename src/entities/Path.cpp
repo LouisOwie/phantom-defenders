@@ -11,8 +11,8 @@ void Path::calculatePathPoints(const std::vector<glm::vec3>& points) {
         return;
     }
     std::vector<glm::vec3> pathPoints;
-    const float cornerRadius = 4.0f; // Radius of the rounding at the corners
-    const int cornerSegments = 30; // Number of points per corner
+    constexpr float cornerRadius = 4.0f; // Radius of the rounding at the corners
+    constexpr int cornerSegments = 30; // Number of points per corner
 
     // Add the first point
     pathPoints.push_back(points[0]);
