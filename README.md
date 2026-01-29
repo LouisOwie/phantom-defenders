@@ -67,3 +67,6 @@ Here are some screenshots from Phantom Defenders:
 ![Gameplay Screenshot](docs/Screenshot_gameplay1.png)
 ![Gameplay Screenshot2](docs/Screenshot_gameplay2.png)
 ![GameOver Screenshot](docs/Screenshot_gameOver.png)
+
+## 📄 License
+This project is intended for educational and non-commercial use.
