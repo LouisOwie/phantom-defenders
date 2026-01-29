@@ -1,6 +1,6 @@
 ﻿# 👻 Phantom Defenders
 
-This is a university project by @LouisOwie and @JawdatAlqawi for the Computer Graphics Lab at the University of Siegen.
+This is a university project by [@LouisOwie](https://github.com/LouisOwie/) and [@JawdatAlqawi](https://github.com/JawdatAlqawi) for the Computer Graphics Lab at the University of Siegen.
 It is a 3D tower defense game demonstrating real-time rendering and basic game mechanics.
 
 ## 🚀 Getting Started
